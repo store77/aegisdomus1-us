@@ -1,4 +1,4 @@
-name: OmniPrime10 12-Hour Amazon Affiliate & Stock Image Autopilot
+name: AegisDomus 12-Hour Smart Home & Security Affiliate Autopilot
 
 on:
   schedule:
@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Run OmniPrime10 Engine (20 Products + Free Stock Images + 5 Reviews + IndexNow)
+      - name: Run AegisDomus Engine (20 Security Products + Stock Images + 5 Reviews + IndexNow)
         env:
           AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
           CUSTOM_SITE_URL: ${{ vars.SITE_URL }}
@@ -36,8 +36,8 @@ jobs:
           else
             export SITE_URL="https://${OWNER}.github.io/${REPO_NAME}"
           fi
-          echo "Publishing Storefront to: $SITE_URL"
-          python omniprime_engine.py
+          echo "Publishing Smart Security Storefront to: $SITE_URL"
+          python aegis_security_engine.py
 
       - name: Commit & Push Updated Storefront to GitHub Pages (/docs)
         run: |
@@ -47,6 +47,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new changes in this 12h cycle."
           else
-            git commit -m "chore(12h-autopilot): publish 20 products with free stock images + 5 reviews [skip ci]"
+            git commit -m "chore(12h-security): publish 20 smart security products + 5 reviews [skip ci]"
             git push
           fi
