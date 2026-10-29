@@ -8,419 +8,350 @@ from urllib.parse import quote_plus
 import requests
 
 # Konfigurasi Environment Variables dari GitHub Secrets / Vars
-AMAZON_TAG = os.environ.get("AMAZON_TAG", "omniprime10-20").strip()
-SITE_URL = os.environ.get("SITE_URL", "https://username.github.io/omniprime10-us").rstrip("/")
-REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "user/omniprime10-us")
+AMAZON_TAG = os.environ.get("AMAZON_TAG", "aegisdomus-20").strip()
+SITE_URL = os.environ.get("SITE_URL", "https://username.github.io/aegisdomus-us").rstrip("/")
+REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "user/aegisdomus-us")
 
 # Kunci verifikasi IndexNow deterministik untuk Bing, Yahoo, Yandex, DuckDuckGo
-INDEXNOW_KEY = hashlib.md5(f"{REPO_NAME}_{AMAZON_TAG}_omniprime10".encode("utf-8")).hexdigest()
+INDEXNOW_KEY = hashlib.md5(f"{REPO_NAME}_{AMAZON_TAG}_aegis12h".encode("utf-8")).hexdigest()
 
 DATA_DIR = "data"
-STATE_FILE = os.path.join(DATA_DIR, "omniprime_state.json")
-IMAGE_CACHE_FILE = os.path.join(DATA_DIR, "stock_image_cache.json")
+STATE_FILE = os.path.join(DATA_DIR, "aegis_state.json")
+IMAGE_CACHE_FILE = os.path.join(DATA_DIR, "security_image_cache.json")
 DOCS_DIR = "docs"
 PRODUCTS_DIR = os.path.join(DOCS_DIR, "products")
 REVIEWS_DIR = os.path.join(DOCS_DIR, "reviews")
 CATEGORIES_DIR = os.path.join(DOCS_DIR, "categories")
 
 HEADERS = {
-    "User-Agent": "OmniPrime10StorefrontBot/2.0 (https://github.com; public-seo-engine@github.com)"
+    "User-Agent": "AegisDomusSecuritySEO/2.0 (https://github.com; security-storefront@github.com)"
 }
 
-# 10 Kategori Terlaris Amazon US & 30 Subkategori
+# Taksonomi Spesialis Smart Home & Security Tech (6 Kategori Utama, 18 Subkategori)
 TAXONOMY = [
     {
-        "category": "Smart Home & Security Tech",
-        "cat_slug": "smart-home-security-tech",
-        "icon": "🛡️",
-        "img_keyword": "security camera smart home",
+        "category": "Perimeter & Outdoor Cameras",
+        "cat_slug": "perimeter-outdoor-cameras",
+        "icon": "📹",
         "subcategories": [
             {
-                "name": "4K Solar Security Cameras",
-                "slug": "4k-solar-security-cameras",
-                "img_q": "security camera outdoor",
-                "brands": ["eufy Security", "Reolink", "Arlo", "Ring", "TP-Link Tapo"],
-                "models": ["SoloCam S340 Dual-Lens Solar", "Argus PT Ultra 4K Solar", "Ultra 2 Spotlight 4K Kit", "Stick Up Cam Pro Solar", "C425 MagCam Solar 2K+"],
-                "specs": {"Video Resolution": "4K UHD (3840x2160) Color Night Vision", "Power Source": "Integrated / Detachable Solar Panel + Rechargeable Battery", "Storage": "Local eMMC / MicroSD (No Monthly Fee Required)", "Weather Rating": "IP65/IP67 All-Season Weatherproof"},
-                "buy_if": "You want 24/7 perimeter security and license-plate clarity without running coaxial cables or paying mandatory monthly cloud fees.",
-                "skip_if": "Your mounting location sits under dense tree cover with zero direct sunlight."
+                "name": "4K Dual-Lens Solar PTZ Cameras",
+                "slug": "4k-dual-lens-solar-ptz-cameras",
+                "img_q": "security camera outdoor surveillance",
+                "brands": ["eufy Security", "Reolink", "Arlo", "TP-Link Tapo", "AosU"],
+                "models": ["SoloCam S340 Dual-Lens 360° Solar", "TrackMix Wi-Fi / LTE Solar 4K PTZ", "Ultra 2 4K Spotlight Solar Kit", "C660KIT Solar Pan-Tilt 4K AI", "SolarCam D1 Max 360° Auto-Track"],
+                "specs": {
+                    "Optical System": "Dual-Lens Wide + Telephoto 8x Hybrid Zoom (4K UHD)",
+                    "Power Architecture": "High-Efficiency Detachable Solar Panel + 10,000mAh Battery",
+                    "Local Storage": "Built-in eMMC / MicroSD up to 512GB (Zero Monthly Cloud Fee)",
+                    "Smart Detection": "On-Device AI Human, Vehicle & Pet Motion Lock"
+                },
+                "buy_if": "You want 360-degree driveway and yard surveillance with license-plate zoom clarity and zero wiring or monthly subscription fees.",
+                "skip_if": "You need 24/7 continuous high-bitrate recording to a central rack-mounted NVR (choose a wired PoE system instead)."
             },
             {
-                "name": "Biometric Smart Deadbolts",
-                "slug": "biometric-smart-deadbolts",
-                "img_q": "smart door lock",
-                "brands": ["Schlage", "Yale", "Aqara", "eufy", "ULTRALOQ"],
-                "models": ["Encode Plus Wi-Fi HomeKey", "Assure Lock 2 Touch Fingerprint", "Smart Lock U100 Apple HomeKey", "Video Smart Lock E330 3-in-1", "U-Bolt Pro Wi-Fi Biometric"],
-                "specs": {"Unlock Methods": "3D Capacitive Fingerprint, Apple HomeKey, PIN, Physical Key", "Certification": "ANSI/BHMA Grade AAA Commercial Durability", "Connectivity": "Built-In Wi-Fi / Matter-Over-Thread", "Battery Life": "6 to 12 Months + USB-C Emergency Jump Port"},
-                "buy_if": "You want keyless sub-0.3-second fingerprint entry and temporary guest PIN codes for family, dog walkers, or Airbnb guests.",
-                "skip_if": "Your rental lease prohibits replacing exterior deadbolt cylinders."
+                "name": "PoE NVR Multi-Camera Kits",
+                "slug": "poe-nvr-multi-camera-security-kits",
+                "img_q": "cctv camera system building",
+                "brands": ["Reolink", "Lorex", "Annke", "Amcrest", "Ubiquiti UniFi"],
+                "models": ["RLK8-800D4 / RLK16-1200D8 12MP PoE System", "Fusion 4K+ 16-Channel 4TB NVR Bundle", "H800 4K PoE ColorVu 8-Cam Turret Kit", "NV4108E-A2 4K 8CH PoE Dome System", "Protect G5 Pro 4K PoE Vision Suite"],
+                "specs": {
+                    "Resolution & Frame Rate": "4K (8MP) to 12MP Ultra-HD @ 25–30 FPS",
+                    "Cabling & Power": "Single-Cable Cat6 Power-over-Ethernet (IEEE 802.3af/at)",
+                    "NVR Pre-Installed Drive": "2TB to 4TB Surveillance-Grade SATA HDD (Expandable to 16TB)",
+                    "Night Vision": "Color Night Vision with F1.6 Aperture + IR Cut Filter"
+                },
+                "buy_if": "You want unjammable, hardwired 24/7 continuous recording around a residential home or commercial property.",
+                "skip_if": "You rent an apartment and cannot run Cat6 Ethernet cables through walls or soffits."
             },
             {
-                "name": "Wi-Fi 7 Mesh Routers",
-                "slug": "wifi-7-mesh-routers",
-                "img_q": "wireless router network",
-                "brands": ["TP-Link Deco", "ASUS ZenWiFi", "Amazon eero", "NETGEAR Orbi", "Google Nest"],
-                "models": ["BE65 Pro Tri-Band Wi-Fi 7 (3-Pack)", "BQ16 Pro Quad-Band Mesh", "Max 7 Tri-Band 10Gbps Mesh", "770 Series Tri-Band Wi-Fi 7", "Pro 6E / Wi-Fi 7 Whole-Home System"],
-                "specs": {"Wireless Standard": "IEEE 802.11be (Wi-Fi 7) with Multi-Link Operation (MLO)", "Coverage": "Up to 7,500 – 9,000 Sq. Ft. Dead-Zone Elimination", "Ethernet Backhaul": "Dual 2.5Gbps / 10Gbps WAN/LAN Ports", "Device Capacity": "200+ Simultaneous Smart Home & 4K Streaming Devices"},
-                "buy_if": "You have gigabit fiber internet and want rock-solid multi-floor coverage with zero dead zones in the garage or backyard.",
-                "skip_if": "You live in a 500 sq. ft. studio apartment where a single router suffices."
+                "name": "AI Floodlight Security Cameras",
+                "slug": "ai-floodlight-security-cameras",
+                "img_q": "floodlight outdoor security",
+                "brands": ["eufy Security", "Ring", "Arlo", "Wyze", "Blink"],
+                "models": ["Floodlight Cam E340 Dual-Cam 24/7", "Floodlight Cam Wired Pro Bird's-Eye", "Pro 3 Floodlight Wireless 2K HDR", "Floodlight v2 2800-Lumen 180° PIR", "Wired Floodlight 2600-Lumen LED"],
+                "specs": {
+                    "Illumination Output": "2,000 to 3,000 Lumens Dimmable Motion-Activated LEDs",
+                    "Field of View": "360° Pan-Tilt or 180° Wide-Angle Radar Zone Mapping",
+                    "Siren Deterrence": "105 dB – 110 dB Remote & Automated Intruder Siren",
+                    "Connectivity": "Dual-Band 2.4GHz / 5GHz Wi-Fi 6 High-Gain Antenna"
+                },
+                "buy_if": "You have an existing outdoor junction box above your garage or patio and want powerful lighting combined with active AI deterrence.",
+                "skip_if": "You lack hardwired 110V–240V outdoor floodlight wiring and prefer a compact battery camera."
             }
         ]
     },
     {
-        "category": "Pet Care & Automated Tech",
-        "cat_slug": "pet-care-automated-tech",
-        "icon": "🐾",
-        "img_keyword": "cat dog pet care",
+        "category": "Biometric Locks & Access",
+        "cat_slug": "biometric-locks-access-control",
+        "icon": "🔐",
         "subcategories": [
             {
-                "name": "Self-Cleaning Cat Litter Boxes",
-                "slug": "self-cleaning-cat-litter-boxes",
-                "img_q": "cat indoor pet",
-                "brands": ["Litter-Robot", "PETKIT", "Neakasa", "PetSafe", "MeoWant"],
-                "models": ["4 Wi-Fi Open-Air Sifting Globe", "Purobot Ultra / PuraMax 2 Odor-Seal", "M1 Open-Top Automatic Litter Box", "ScoopFree Crystal Pro Self-Cleaning", "MW-SC01 Ultra-Quiet Auto Sifter"],
-                "specs": {"Safety Sensors": "Infrared + Weight Scale Pinch-Prevention Array", "Odor Control": "Sealed Waste Drawer with Activated Carbon / UV Filter", "Multi-Cat Capacity": "Supports Up to 4 Cats (3.5 lbs to 25 lbs)", "App Telemetry": "Real-Time Cat Weight & Bathroom Frequency Tracking"},
-                "buy_if": "You want to eliminate daily manual scooping and track your cat's urinary health via smartphone notifications.",
-                "skip_if": "Your kitten weighs under 3 lbs (minimum weight required to trigger automatic safety sensors)."
+                "name": "3D Fingerprint & Palm-Vein Deadbolts",
+                "slug": "fingerprint-palm-vein-smart-deadbolts",
+                "img_q": "electronic door lock keypad",
+                "brands": ["Philips", "eufy Security", "ULTRALOQ", "Lockly", "Kwikset"],
+                "models": ["Palm Recognition Wi-Fi Smart Deadbolt", "Video Smart Lock S330 3-in-1 Camera+Lock", "Bolt Fingerprint Matter / Wi-Fi Pro", "Vision Elite Video Biometric Deadbolt", "Halo Touch Fingerprint Wi-Fi Modern"],
+                "specs": {
+                    "Biometric Sensor": "Sub-0.3s 3D Semiconductor Fingerprint / Touchless Palm-Vein Scanner",
+                    "Security Grade": "ANSI/BHMA Grade 1 / Grade AAA Certified Deadbolt Bolt",
+                    "Access Modes": "Biometric, Anti-Peep Passcode, App, Voice & Mechanical Key",
+                    "Emergency Power": "10-Month Lithium/AA Battery + Exterior USB-C Jump Port"
+                },
+                "buy_if": "You want instant keyless entry even when your hands are wet or aged, plus real-time audit logs of every door unlock.",
+                "skip_if": "Your front door uses an antique mortise lock cylinder incompatible with standard US deadbolt boreholes."
             },
             {
-                "name": "Smart Camera Pet Feeders",
-                "slug": "smart-camera-pet-feeders",
-                "img_q": "pet food bowl dog cat",
-                "brands": ["PETLIBRO", "Petcube", "WOPET", "Whisker", "PetSafe"],
-                "models": ["Granary Dual-Food 1080p Camera Feeder", "Bites 2 Lite Interactive Treat & Meal", "Heritage View 5L Wi-Fi Dispenser", "Feeder-Robot Automatic Portion Pro", "Smart Feed 2.0 Stainless Bowl"],
-                "specs": {"Hopper Volume": "4.0L to 5.0L Desiccant-Sealed Dry Kibble Storage", "Camera System": "1080p HD 145° Wide-Angle + Two-Way Audio & Night Vision", "Bowl Material": "Food-Grade 304 Stainless Steel (Prevents Chin Acne)", "Backup Power": "Dual Power: USB-C Wall Adapter + Battery Blackout Backup"},
-                "buy_if": "You work long shifts or travel on weekends and want scheduled portion control with live video verification.",
-                "skip_if": "You feed a 100% raw wet-food diet that requires constant refrigeration."
+                "name": "Matter & HomeKey Smart Locks",
+                "slug": "matter-apple-homekey-smart-locks",
+                "img_q": "smart door lock home",
+                "brands": ["Schlage", "Aqara", "Yale", "Level", "SwitchBot"],
+                "models": ["Encode Plus Wi-Fi Apple HomeKey", "Smart Lock U100 / U200 Matter-Over-Thread", "Assure Lock 2 Plus Apple HomeKey", "Lock+ Connect Invisible Bluetooth/Matter", "Lock Pro Retrofit + Keypad Touch"],
+                "specs": {
+                    "Smart Ecosystem": "Native Apple HomeKey (iPhone/Watch Tap) & Matter-Over-Thread",
+                    "Encryption": "AES-128 Bit Local Hardware Secure Element",
+                    "Auto-Lock Sensor": "Built-In Gyroscopic Door-Ajar Position Sensor",
+                    "Guest Management": "Up to 250 Scheduled & One-Time Contractor Access Codes"
+                },
+                "buy_if": "You use Apple Home, Google Home, or Home Assistant and want tap-to-unlock convenience with your Apple Watch or smartphone.",
+                "skip_if": "You have no interest in smartphone automation and only want a mechanical keypad."
             },
             {
-                "name": "Orthopedic Dog Beds",
-                "slug": "orthopedic-memory-foam-dog-beds",
-                "img_q": "dog sleeping bed",
-                "brands": ["Big Barker", "Furhaven", "Casper", "Bedsure", "PetFusion"],
-                "models": ["7-Inch Pillow Top Orthopedic XL", "Plush & Suede Bolster Sofa Bed", "Memory Foam Engineered Dog Bed", "CertiPUR-US Egg-Crate Waterproof Sofa", "Ultimate Lounge Solid Memory Foam"],
-                "specs": {"Foam Core": "Solid / Dual-Layer CertiPUR-US High-Density Orthopedic Foam", "Liner Protection": "100% Waterproof Internal Breathable Membrane", "Outer Cover": "Machine-Washable Tear-Resistant Microfiber Bolster", "Joint Support": "Calibrated for Senior Dogs, Hip Dysplasia & Arthritis"},
-                "buy_if": "You have a large-breed or senior dog that needs pressure-point relief and a waterproof, washable cover.",
-                "skip_if": "Your puppy is in an aggressive destructive chewing phase (use a chew-proof elevated cot first)."
+                "name": "Smart Garage Controllers",
+                "slug": "smart-wifi-garage-door-controllers",
+                "img_q": "garage door house exterior",
+                "brands": ["Meross", "Chamberlain myQ", "Tailwind", "Genie", "Konnected"],
+                "models": ["MSG100HK / MSG200HK CarPlay & HomeKit", "Smart Garage Video Keypad + Hub Bundle", "iQ3 Pro Auto-Sense Vehicle Controller", "Aladdin Connect Smartphone Opener", "blaQ Local ESPHome Garage Opener"],
+                "specs": {
+                    "Voice & Car Integration": "Apple CarPlay, Siri, Alexa, Google Assistant & Local API",
+                    "Door Compatibility": "Supports Over 200+ Opener Models (With Yellow/Purple Learn Adapter)",
+                    "Safety Alerting": "Overnight Forgotten-Open Alert + Audible Closing Beep",
+                    "Multi-Bay Support": "Controls 1 to 3 Individual Garage Doors from One Module"
+                },
+                "buy_if": "You want your garage door to close automatically when you drive away and alert your phone if left open after 10 PM.",
+                "skip_if": "Your garage has manual swing-out carriage doors without an overhead motorized rail opener."
             }
         ]
     },
     {
-        "category": "Outdoor Gear & Camping",
-        "cat_slug": "outdoor-gear-camping",
-        "icon": "⛺",
-        "img_keyword": "camping tent outdoor mountains",
+        "category": "Video Doorbells & Intercoms",
+        "cat_slug": "video-doorbells-intercoms",
+        "icon": "🔔",
         "subcategories": [
             {
-                "name": "Ultralight Backpacking Tents",
-                "slug": "ultralight-backpacking-tents",
-                "img_q": "camping tent nature",
-                "brands": ["Big Agnes", "MSR", "NEMO", "Kelty", "Naturehike"],
-                "models": ["Copper Spur HV UL2 Bikepack/Trail", "Hubba Hubba NX 2-Person Freestanding", "Dagger OSMO Ultralight 2P/3P", "Late Start 2-Person Fast-Pitch", "Cloud Up 20D Silicone Ultralight"],
-                "specs": {"Trail Weight": "2 lbs 10 oz to 3 lbs 12 oz Ultralight Pack Weight", "Poles": "DAC Featherlite Aluminum Pre-Bent Hub Architecture", "Waterproof Rating": "1500mm–3000mm Ripstop Sil-Nylon Rainfly & Bathtub Floor", "Ventilation": "Dual Doors +Dual Vestibules with No-See-Um Mesh"},
-                "buy_if": "You hike multi-day backcountry trails or bikepack and need storm-worthy shelter under 3.5 lbs.",
-                "skip_if": "You want a standing-height 8-person family cabin tent for drive-in car campgrounds."
+                "name": "Dual-Camera Package Doorbells",
+                "slug": "dual-camera-package-video-doorbells",
+                "img_q": "doorbell front door delivery",
+                "brands": ["eufy Security", "Ring", "TP-Link Tapo", "Arlo", "Lorex"],
+                "models": ["Video Doorbell E340 Dual-Cam + HomeBase", "Battery Doorbell Pro Head-to-Toe Radar", "D235 2K 5MP 180° Head-to-Toe Doorbell", "2K Wireless Video Doorbell + Chime", "4K Dual-Lens Parcel Guard Doorbell"],
+                "specs": {
+                    "Camera Array": "Front 2K/4K Visitor Camera + Downward Porch Package Camera",
+                    "Blind-Spot Coverage": "Eliminates Porch Floor Blind Spots Down to 0 Inches",
+                    "Power Options": "Quick-Swap Rechargeable Battery OR 8–24V AC Hardwired",
+                    "Porch Protection": "AI Delivery Guard Alerts When Packages Are Dropped Off or Approached"
+                },
+                "buy_if": "You receive frequent Amazon and courier deliveries and want dedicated downward camera verification of packages on your doormat.",
+                "skip_if": "You live in a gated high-rise building where packages are held at a front concierge desk."
             },
             {
-                "name": "Rotomolded Hard Coolers",
-                "slug": "rotomolded-hard-coolers",
-                "img_q": "cooler box camping",
-                "brands": ["YETI", "RTIC", "Coleman", "Igloo", " Pelican"],
-                "models": ["Tundra 45 / Roadie 48 Wheeled", "52-Qt Ultra-Light Hard Cooler", "Pro Series 55-Qt Heavy-Duty", "BMX / Trailmate 52-Qt All-Terrain", "Elite 50-Qt Extreme Ice Retention"],
-                "specs": {"Ice Retention": "5 to 8 Days Sub-Freezing Permafrost Polyurethane Insulation", "Shell Construction": "One-Piece Rotomolded UV-Resistant Armored Polyethylene", "Lid Seal": "Freezer-Grade Interlocking Silicone Gasket + Heavy Latches", "Drain System": "Leakproof Tethered Vortex Rapid Drain Plug"},
-                "buy_if": "You camp off-grid, tailgate, or fish for multiple days and need guaranteed ice retention in 95°F summer heat.",
-                "skip_if": "You only need a lightweight soft lunchbag for a 2-hour beach walk."
+                "name": "Wired 4K Chime Doorbells",
+                "slug": "wired-4k-chime-video-doorbells",
+                "img_q": "front door bell entrance",
+                "brands": ["Reolink", "Google Nest", "Ring", "Ecobee", "Amcrest"],
+                "models": ["Video Doorbell Wi-Fi / PoE 2K+ 5MP", "Doorbell (Wired, 2nd Gen) 24/7 History", "Wired Doorbell Pro 3D Motion Radar", "Smart Video Doorbell Wired + Thermostat View", "4MP AD410 AI Human-Detection Wired"],
+                "specs": {
+                    "Pre-Roll Recording": "6-Second Color Pre-Roll Captures Motion Prior to Trigger",
+                    "Chime Included": "Plug-In Wireless Indoor Chime + Mechanical Chime Bypass",
+                    "Weather Resistance": "IP65 Weatherproof (-4°F to 131°F Operating Range)",
+                    "NVR / RTSP Support": "Supports ONVIF / RTSP Local Recording on Select Models"
+                },
+                "buy_if": "You have existing 16V–24V doorbell wires at your front entrance and never want to recharge a doorbell battery.",
+                "skip_if": "Your front doorframe has no existing low-voltage doorbell wiring."
             },
             {
-                "name": "Portable Water Filters",
-                "slug": "portable-backcountry-water-filters",
-                "img_q": "water bottle hiking",
-                "brands": ["Sawyer", "Katadyn", "Grayl", "LifeStraw", "Platypus"],
-                "models": ["Squeeze 0.1 Micron Hollow-Fiber System", "BeFree 1.0L Fast-Flow Collapsible", "GeoPress 24-Oz Purifier Bottle", "Peak Series Gravity 3L Bag System", "QuickDraw Microfilter 2L Kit"],
-                "specs": {"Pore Size": "0.1 Micron Absolute Hollow-Fiber / Electroadsorptive Media", "Pathogen Removal": "99.99999% Bacteria (Salmonella, E. coli) & 99.9999% Protozoa", "Flow Rate": "Up to 2.0 Liters Per Minute Squeeze / Press", "Filter Lifespan": "1,000 to 100,000 Gallons Backflushable Capacity"},
-                "buy_if": "You need instant, chemical-free safe drinking water from alpine lakes, streams, or international hotel taps.",
-                "skip_if": "You only camp at RV parks with municipal potable water hookups."
+                "name": "PoE Smart Video Intercoms",
+                "slug": "poe-smart-video-intercom-panels",
+                "img_q": "intercom access panel building",
+                "brands": ["Ubiquiti UniFi", "Akuvox", "Hikvision", "2N IP", "Dahua"],
+                "models": ["Access G2 Reader Pro PoE Video Intercom", "R20A / E12W SIP Video Doorphone + Touch Monitor", "DS-KIS603-P IP Video Intercom Kit", "IP Verso Modular PoE Security Intercom", "7-Inch Touchscreen PoE Gate Intercom Bundle"],
+                "specs": {
+                    "Communication Protocol": "Standard SIP / PoE IP Two-Way HD Video & Audio",
+                    "Gate & Strike Relay": "Built-In Dry/Wet Contact Relay for Electric Strikes & Maglocks",
+                    "Unlock Credentials": "NFC Card, PIN Code, Mobile App Bluetooth & Remote Indoor Screen",
+                    "Enclosure Rating": "IK08 Vandal-Resistant & IP65 Weatherproof Aluminum Housing"
+                },
+                "buy_if": "You manage a gated driveway, multi-family property, or modern custom home requiring hardwired PoE intercom and gate release.",
+                "skip_if": "You just need a simple peel-and-stick battery doorbell."
             }
         ]
     },
     {
-        "category": "Fitness & Recovery Equipment",
-        "cat_slug": "fitness-recovery-equipment",
-        "icon": "🏋️",
-        "img_keyword": "dumbbells gym fitness workout",
+        "category": "Mesh Wi-Fi 7 & Firewalls",
+        "cat_slug": "mesh-wifi-7-firewalls",
+        "icon": "📡",
         "subcategories": [
             {
-                "name": "Adjustable Dumbbell Sets",
-                "slug": "quick-lock-adjustable-dumbbells",
-                "img_q": "dumbbells gym weights",
-                "brands": ["Bowflex", "PowerBlock", "NÜOBELL", "NordicTrack", "Flybird"],
-                "models": ["SelectTech 552 Dual Pair (5–52.5 lbs)", "Elite EXP Stage-1 Expandable (5–90 lbs)", "80-lb CNC Knurled Twist-Lock Pair", "iSelect Voice-Controlled 50-lb Pair", "55-lb Rapid-Dial Home Gym Pair"],
-                "specs": {"Weight Range": "5 lbs to 52.5 / 80 lbs per Hand in 2.5–5 lb Increments", "Adjustment Mechanism": "1-Second Single-Handed Twist / Pin Selector Dial", "Space Saved": "Replaces 15 to 30 Individual Pairs of Free Weights", "Cradle Tray": "Heavy-Impact Molded Retention Storage Base"},
-                "buy_if": "You want a full progressive-overload strength training rack in a compact bedroom or garage corner.",
-                "skip_if": "You routinely drop heavy dumbbells from overhead onto concrete floors."
+                "name": "Wi-Fi 7 Tri-Band Mesh Routers",
+                "slug": "wifi-7-tri-band-mesh-routers",
+                "img_q": "wireless router internet antenna",
+                "brands": ["TP-Link Deco", "Amazon eero", "ASUS ZenWiFi", "NETGEAR Orbi", "Linksys"],
+                "models": ["BE85 / BE65 Pro Tri-Band Wi-Fi 7 (3-Pack)", "Max 7 Tri-Band 10Gbps Mesh System", "BQ16 Pro Quad-Band Wi-Fi 7 30,000 Mbps", "970 / 770 Series Tri-Band Wi-Fi 7", "Velop Pro 7 Cognitive Mesh 3-Node"],
+                "specs": {
+                    "Wi-Fi Generation": "Wi-Fi 7 (802.11be) with 320MHz Channels & 4K-QAM",
+                    "Multi-Link Operation": "Simultaneous 2.4GHz + 5GHz + 6GHz Wireless/Wired Backhaul",
+                    "WAN / LAN Ports": "2.5Gbps & 10Gbps Multi-Gig Ethernet Ports per Node",
+                    "IoT Camera Capacity": "Supports 200+ Simultaneous 4K Cameras & Smart Devices"
+                },
+                "buy_if": "You run multiple 4K wireless security cameras around your exterior walls and need high-throughput 6GHz backhaul.",
+                "skip_if": "Your internet service plan is under 100 Mbps in a small single-room studio."
             },
             {
-                "name": "Under-Desk Walking Pads",
-                "slug": "under-desk-walking-pad-treadmills",
-                "img_q": "treadmill running fitness",
-                "brands": ["UREVO", "WalkingPad", "Sperax", "Sunny Health", "DeerRun"],
-                "models": ["2-in-1 Folding Incline Walking Pad", "C2 / A1 Pro Foldable Smart Treadmill", "3-in-1 Under-Desk Vibration Pad", "Slim-Flat Brushless Office Treadmill", "Q1 Mini Whisper-Quiet 2.5HP Pad"],
-                "specs": {"Motor Drive": "2.25 to 2.5 HP Whisper-Quiet Brushless Motor (<45 dB)", "Speed Range": "0.6 MPH to 4.0 / 7.5 MPH (LED Remote & App Control)", "Deck Cushioning": "5-Layer Non-Slip Belt + 8 Silicone Shock Absorbers", "Storage Profile": "5-Inch Slim Profile Slides Under Sofa or Standing Desk"},
-                "buy_if": "You work remotely at a standing desk and want to hit 10,000 daily steps during Zoom calls regardless of weather.",
-                "skip_if": "You are training for sub-6-minute marathon sprinting intervals."
+                "name": "Multi-Gig VPN Security Gateways",
+                "slug": "multi-gig-vpn-security-gateways",
+                "img_q": "network switch ethernet server",
+                "brands": ["Ubiquiti UniFi", "Firewalla", "GL.iNet", "TP-Link Omada", "Protectli"],
+                "models": ["Cloud Gateway Max / Dream Machine Pro SE", "Gold SE / Gold Pro Dual-2.5G Cyber Firewall", "Flint 2 (GL-MT6000) WireGuard VPN Router", "ER707-M2 Multi-Gigabit VPN Gateway", "Vault Pro 4-Port 2.5G OPNsense/pfSense Appliance"],
+                "specs": {
+                    "Intrusion Prevention": "Real-Time Deep Packet Inspection (IDS/IPS) @ 2.5Gbps+",
+                    "VLAN Segmentation": "Isolates IoT Cameras & Smart Locks onto Secure Guest/IoT VLANs",
+                    "VPN Throughput": "Built-In WireGuard & OpenVPN Server/Client Hardware Acceleration",
+                    "Failover Redundancy": "Dual-WAN Auto-Failover to 5G/LTE or Starlink Backup"
+                },
+                "buy_if": "You want enterprise-grade network segmentation that isolates your smart home cameras from your work computers.",
+                "skip_if": "You prefer a zero-configuration ISP rental router."
             },
             {
-                "name": "Deep-Tissue Massage Guns",
-                "slug": "percussion-deep-tissue-massage-guns",
-                "img_q": "massage therapy recovery",
-                "brands": ["Therabody", "Bob and Brad", "Hyperice", "TOLOCO", "RENPHO"],
-                "models": ["Theragun Prime / Relief Ergonomic", "Q2 Mini / C2 Pro Heated & Cold Head", "Hypervolt 2 QuietGlide Bluetooth", "EM26 Deep-Tissue 12mm Amplitude", "Active Thermacool Percussion Gun"],
-                "specs": {"Stroke Amplitude": "10mm to 16mm True Deep-Muscle Percussion Depth", "Stall Force": "30 lbs to 60 lbs No-Stall Brushless High-Torque Motor", "Attachments": "5 to 8 Interchangeable Closed-Cell Foam & Heated Heads", "Battery Runtime": "180 to 300 Minutes USB-C Fast-Charge Lithium Pack"},
-                "buy_if": "You experience post-workout DOMS soreness, tight hamstrings, or upper-trap stiffness from desk work.",
-                "skip_if": "You have acute bone fractures or prefer gentle spa-style Swedish surface rubbing."
+                "name": "Outdoor PoE Access Points",
+                "slug": "outdoor-poe-wifi-access-points",
+                "img_q": "wireless antenna outdoor pole",
+                "brands": ["TP-Link Omada", "Ubiquiti UniFi", "WAVLINK", "EnGenius", "Cudy"],
+                "models": ["EAP650-Outdoor / EAP610-Outdoor Wi-Fi 6 PoE", "U6 Mesh Pro / Swiss Army Knife Ultra Outdoor", "AX3000 High-Power Weatherproof PoE Extender", "EWS850-FIT Wi-Fi 6 IP67 Outdoor AP", "AP3000 Outdoor 2.5G PoE Mesh Point"],
+                "specs": {
+                    "Outdoor Coverage": "Up to 650–1,000 Feet Open-Yard & Detached Barn Range",
+                    "Enclosure Protection": "IP67 / IP68 Waterproof, Dustproof & 6kV Lightning Protection",
+                    "Power Delivery": "802.3at PoE+ Single Ethernet Cable Power & Data",
+                    "Mounting Hardware": "Pole-Mount & Wall-Mount Stainless Brackets Included"
+                },
+                "buy_if": "You need strong Wi-Fi signal at your driveway gate, detached workshop, pool house, or perimeter solar cameras.",
+                "skip_if": "You do not have an outdoor patio, yard, or detached garage."
             }
         ]
     },
     {
-        "category": "Automotive & Garage Tools",
-        "cat_slug": "automotive-garage-tools",
-        "icon": "🚗",
-        "img_keyword": "car dashboard automotive tool",
+        "category": "Smart Climate & Leak Defense",
+        "cat_slug": "smart-climate-leak-defense",
+        "icon": "🌡️",
         "subcategories": [
             {
-                "name": "3-Channel 4K Dash Cams",
-                "slug": "3-channel-4k-dash-cams",
-                "img_q": "car windshield driving",
-                "brands": ["VIOFO", "Vantrue", "Rove", "Redtiger", "Garmin"],
-                "models": ["A229 Pro 3CH 4K Sony STARVIS 2", "N4 Pro 3-Channel 4K Front/Inside/Rear", "R2-4K PRO Dual STARVIS GPS", "F7NP 4K Front & Rear 5GHz Wi-Fi", "Dash Cam Live / Mini 3 Voice Control"],
-                "specs": {"Image Sensor": "Sony STARVIS 2 IMX678 HDR Night-Plate Recognition", "Power Design": "Supercapacitor Extreme Heat Resistance (-4°F to 158°F)", "Connectivity": "5GHz Ultra-Fast Wi-Fi App Download + Built-In GPS Logger", "Parking Mode": "24/7 Buffered Low-Bitrate & Motion Collision Recording"},
-                "buy_if": "You commute daily or drive rideshare and want irrefutable 4K license-plate evidence day or night.",
-                "skip_if": "Your vehicle already includes built-in multi-angle factory dashcam recording."
+                "name": "Multi-Zone Learning Thermostats",
+                "slug": "multi-zone-learning-smart-thermostats",
+                "img_q": "thermostat wall temperature home",
+                "brands": ["Ecobee", "Google Nest", "Honeywell Home", "Amazon", "Sensi"],
+                "models": ["Smart Thermostat Premium + SmartSensor", "Learning Thermostat (4th Gen) + Temp Sensor", "T9 / T10 Pro Smart with Remote Room Sensors", "Smart Thermostat ENERGY STAR Certified", "Touch 2 Smart Color Touchscreen"],
+                "specs": {
+                    "Room Occupancy Sensors": "Wireless Radar Occupancy & Temperature Balancing Sensors",
+                    "HVAC Compatibility": "Supports Multi-Stage Heat Pumps, Dual-Fuel & Conventional Systems",
+                    "Air Quality Monitor": "Built-In VOC, CO2 & Humidity Indoor Air Quality Sensor (Premium)",
+                    "Energy Savings": "ENERGY STAR Certified (Saves Up to 23%–26% Annual HVAC Cost)"
+                },
+                "buy_if": "You want your HVAC system to prioritize the temperature in your occupied bedroom at night rather than an empty hallway.",
+                "skip_if": "Your home uses high-voltage 120V/240V electric baseboard heaters (requires a dedicated line-voltage thermostat)."
             },
             {
-                "name": "Lithium Jump Starters",
-                "slug": "lithium-car-battery-jump-starters",
-                "img_q": "car battery engine mechanic",
-                "brands": ["NOCO", "GOOLOO", "AVAPOW", "HULKMAN", "DEWALT"],
-                "models": ["Boost Plus GB40 / GB50 XL 1500A", "GP4000 SuperSafe 4000A Peak Pro", "A68 6000A Heavy-Duty 12V Pack", "Alpha 85S Pre-Heat Extreme Cold", "DXAEJ14 Digital Jump Starter + Compressor"],
-                "specs": {"Peak Cranking Amps": "1,500A to 4,000A (Starts Up to 9.0L Gas & 7.0L Diesel)", "Safety Protection": "UltraSafe Spark-Proof + Reverse Polarity Protection", "Power Bank Function": "60W USB-C PD Fast Laptop/Phone Charging + 400-Lumen Strobe", "Standby Retention": "Holds Charge up to 12–24 Months in Glovebox"},
-                "buy_if": "You want self-reliant 30-second dead-battery recovery in winter parking lots without waiting for roadside assistance.",
-                "skip_if": "You drive a pure battery-electric vehicle without a 12V accessory system."
+                "name": "Ultrasonic Auto Water Shutoff Valves",
+                "slug": "ultrasonic-automatic-water-shutoff-valves",
+                "img_q": "plumbing water pipe valve",
+                "brands": ["Moen", "Phyn", "YoLink", "Flume", "Kidde"],
+                "models": ["Flo Smart Water Monitor & Auto Shutoff (3/4\" & 1\")", "Plus 2nd-Gen Ultrasonic Smart Water Assistant", "LoRa Bulldog Robot Valve + 4 Leak Sensors", "2 Smart Home Water Monitor + Strap", " Ring-Compatible Smart Water Shutoff"],
+                "specs": {
+                    "Leak Detection Tech": "24/7 Ultrasonic Flow, Pressure & Micro-Drip Testing",
+                    "Automatic Action": "Motorized Ball Valve Shuts Off Main Water Supply in Seconds",
+                    "Wireless Range": "Wi-Fi + LoRa 1,000-Ft Basement-Penetrating Sensor Link",
+                    "Insurance Benefit": "Qualifies for Homeowner Insurance Water-Damage Discounts"
+                },
+                "buy_if": "You want to prevent catastrophic $15,000+ burst-pipe or water-heater flooding while you are away on vacation.",
+                "skip_if": "You live in a multi-unit apartment where the main water shutoff valve is locked in a utility basement."
             },
             {
-                "name": "Bi-Directional OBD2 Scanners",
-                "slug": "bidirectional-obd2-diagnostic-scanners",
-                "img_q": "car mechanic diagnostic tool",
-                "brands": ["BlueDriver", "TOPDON", "Autel", "FOXWELL", "ANCEL"],
-                "models": ["Bluetooth Pro OBDII Scan Tool", "TopScan Pro Bi-Directional Active Test", "MaxiCOM MK808S Full-System Tablet", "NT630 Plus ABS & SRS Bleed Tool", "BD310 / AD410 Enhanced Check-Engine"],
-                "specs": {"System Coverage": "All-System Diagnostics (Engine, Transmission, ABS, Airbag, DPF)", "Active Control": "Bi-Directional Actuator Tests & 28+ Maintenance Resets", "Database": "Verified ASE Mechanic Repair Reports & Live PID Graphing", "Subscription": "Lifetime Free Software Updates (on Select Pro Models)"},
-                "buy_if": "You want to read check-engine, ABS, and airbag codes yourself and avoid $150 dealership diagnostic fees.",
-                "skip_if": "Your car was manufactured prior to the 1996 OBD-II standardization mandate."
+                "name": "Smart Smoke & CO Detectors",
+                "slug": "smart-smoke-carbon-monoxide-detectors",
+                "img_q": "smoke detector ceiling alarm",
+                "brands": ["Google Nest", "First Alert", "Kidde", "X-Sense", "Aqara"],
+                "models": ["Protect 2nd-Gen Split-Spectrum Smoke + CO", "Onelink Safe & Sound Smart Hardwired", "Smart Smoke + Carbon Monoxide + Indoor Air Quality", "SC07-WX Wi-Fi 10-Year Sealed Battery Combo", "Zigbee 3.0 Smart Photoelectric Smoke Detector"],
+                "specs": {
+                    "Sensor Chemistry": "Split-Spectrum Photoelectric Smoke + Electrochemical CO Sensor",
+                    "Smartphone Alerts": "Instant Push Notification + Voice Room-Location Announcement",
+                    "Self-Testing": "Automated Silent Microphone & Sensor Health Check",
+                    "Lifespan": "10-Year UL-Listed Sensor & Sealed Lithium Battery Backup"
+                },
+                "buy_if": "You want instant smartphone alerts if smoke or carbon monoxide is detected while you are away from home.",
+                "skip_if": "Your building uses a commercial 24V hardwired fire panel managed by an HOA."
             }
         ]
     },
     {
-        "category": "Audio & Creator Studio Gear",
-        "cat_slug": "audio-creator-studio-gear",
-        "icon": "🎧",
-        "img_keyword": "headphones microphone audio studio",
+        "category": "Matter Hubs, Shades & Lighting",
+        "cat_slug": "matter-hubs-shades-lighting",
+        "icon": "⚡",
         "subcategories": [
             {
-                "name": "ANC Over-Ear Headphones",
-                "slug": "anc-wireless-over-ear-headphones",
-                "img_q": "headphones audio music",
-                "brands": ["Sony", "Bose", "Sennheiser", "Soundcore", "Apple"],
-                "models": ["WH-1000XM5 / WH-CH720N Wireless ANC", "QuietComfort Ultra Spatial Audio", "MOMENTUM 4 Wireless 60-Hr Battery", "Space One Pro / Q45 LDAC Hi-Res", "Beats Studio Pro Lossless USB-C"],
-                "specs": {"Noise Cancellation": "Multi-Microphone Adaptive Active Noise Cancellation (ANC)", "Battery Endurance": "30 to 60 Hours Continuous Playback (5-Min Quick Charge)", "Audio Codecs": "LDAC, aptX Adaptive, AAC & Wired USB-C DAC", "Multipoint": "Simultaneous Dual-Device Bluetooth 5.3 Pairing"},
-                "buy_if": "You fly frequently, commute on noisy trains, or work in open offices and need total acoustic isolation.",
-                "skip_if": "You only want waterproof in-ear buds for heavy-sweat running."
+                "name": "Local Zigbee/Thread/Matter Hubs",
+                "slug": "local-zigbee-thread-matter-hubs",
+                "img_q": "smart home automation hub",
+                "brands": ["Home Assistant", "Hubitat", "Aqara", "Aeotec", "SwitchBot"],
+                "models": ["Green Smart Home Hub + SkyConnect ZBT-1", "Elevation C-8 Pro Local Z-Wave 800 / Zigbee", "Hub M3 Matter Controller & Thread Border Router", "SmartThings Station Matter/Zigbee/Z-Wave", "Hub 2 Matter IR + Thermo-Hygrometer"],
+                "specs": {
+                    "Radios Onboard": "Matter Controller, Thread Border Router, Zigbee 3.0 & Z-Wave 800",
+                    "Cloud Dependency": "100% Local Automation Execution (Works When Internet Is Down)",
+                    "Cross-Platform Bridge": "Bridges 1,000+ Sensors into Apple Home, Alexa & Google Home",
+                    "Power & Network": "PoE / Ethernet Wired Port + Dual-Band Wi-Fi"
+                },
+                "buy_if": "You want sub-50ms instant sensor automations that keep working even during an ISP internet outage.",
+                "skip_if": "You only own a single Wi-Fi smart plug."
             },
             {
-                "name": "XLR/USB Podcast Microphones",
-                "slug": "xlr-usb-dynamic-podcast-microphones",
-                "img_q": "studio microphone podcast",
-                "brands": ["Shure", "Rode", "FIFINE", "Audio-Technica", "Elgato"],
-                "models": ["MV7+ Hybrid XLR/USB-C Dynamic", "PodMic USB Broadcast Dynamic", "Tank3 / K688 Dynamic Studio Mic", "AT2040USB Hypercardioid Dynamic", "Wave DX + Wave XLR Broadcast Bundle"],
-                "specs": {"Capsule Type": "Dynamic Cardioid (Rejects Untreated Room Echo & Keyboard Clicks)", "Outputs": "Dual Hybrid USB-C Digital DSP + Professional 3-Pin XLR", "Onboard DSP": "Real-Time Auto-Leveler, Digital Popper Stopper & Denoiser", "Bit Depth": "24-Bit / 48kHz Broadcast Studio Resolution"},
-                "buy_if": "You record podcasts, YouTube voiceovers, or executive Zoom calls in an untreated bedroom or home office.",
-                "skip_if": "You are recording an acoustic string quartet from 10 feet away."
+                "name": "Motorized Smart Roller Shades",
+                "slug": "motorized-smart-roller-shades",
+                "img_q": "window blinds living room modern",
+                "brands": ["Lutron", "Eve MotionBlinds", "SmartWings", "SwitchBot", "Yoolax"],
+                "models": ["Serena / Caseta Wireless Smart Roller Shade", "Upgrade Kit for Roller Blinds Matter-Over-Thread", "Motorized 100% Blackout Linen Shade (Matter/Zigbee)", "Curtain 3 Rod/U-Rail Solar Retrofit Motor", "Motorized Cellular Honeycomb Blackout Blind"],
+                "specs": {
+                    "Motor Acoustic Rating": "Whisper-Quiet 35 dB – 42 dB Brushless Tubular Motor",
+                    "Power Supply": "USB-C Rechargeable Battery (6–12 Months) + Window Solar Strip",
+                    "Smart Protocols": "Matter-Over-Thread, Apple HomeKit, Zigbee 3.0 & Alexa",
+                    "Scheduling": "Automated Sunrise/Sunset & Thermostat Heat-Gain Schedules"
+                },
+                "buy_if": "You have hard-to-reach bedroom or living room windows and want automated sunrise wake-up and afternoon solar heat blocking.",
+                "skip_if": "Your windows have non-standard arched semicircular frames."
             },
             {
-                "name": "Dolby Atmos Soundbars",
-                "slug": "dolby-atmos-home-theater-soundbars",
-                "img_q": "home theater television speaker",
-                "brands": ["Sonos", "Bose", "Samsung", "JBL", "VIZIO"],
-                "models": ["Arc Ultra / Beam Gen 2 Dolby Atmos", "Smart Ultra Soundbar with AI Dialogue", "HW-Q990D / Q800D 11.1.4ch Wireless Sub", "Bar 1000 7.1.4 Detachable Surrounds", "Elevate SE 5.1.2 Rotating Atmos Speakers"],
-                "specs": {"Channel Architecture": "Up-Firing True Dolby Atmos & DTS:X 3D Acoustic Dome", "Connectivity": "HDMI eARC Uncompressed Audio + Wi-Fi AirPlay 2", "Voice Enhancement": "AI Center-Channel Vocal Clarity Booster", "Subwoofer": "Wireless Deep-Bass Reflex Subwoofer Included/Compatible"},
-                "buy_if": "You can barely hear whispered movie dialogue on flat-screen TV speakers and want cinema-grade 3D surround sound.",
-                "skip_if": "You already have a wired 9.2-channel AVR receiver with in-ceiling speakers."
-            }
-        ]
-    },
-    {
-        "category": "Baby & Nursery Essentials",
-        "cat_slug": "baby-nursery-essentials",
-        "icon": "🍼",
-        "img_keyword": "baby nursery stroller crib",
-        "subcategories": [
-            {
-                "name": "4K Split-Screen Baby Monitors",
-                "slug": "split-screen-video-baby-monitors",
-                "img_q": "baby sleeping crib",
-                "brands": ["Infant Optics", "HelloBaby", "Nanit", "Momcozy", "eufy Care"],
-                "models": ["DXR-8 PRO Active Noise Reduction", "HB6550 5-Inch Pan-Tilt-Zoom 2-Cam", "Pro Smart Breathing Wear Monitor", "BM01 5.5-Inch 1080p Non-WiFi Secure", "SpaceView Pro 720p Wide-Angle"],
-                "specs": {"Security Protocol": "100% Hack-Proof FHSS Closed-Loop Local Radio / AES-256", "Display Screen": "5.0 to 5.5-Inch HD Split-Screen Parent Unit + Remote Pan/Tilt", "Audio Filtering": "Active White-Noise Background Suppression (Hears Cries Only)", "Range": "Up to 1,000 Feet Multi-Wall Home Penetration"},
-                "buy_if": "You want instant, lag-free overnight video monitoring of one or two nursery rooms without relying on home Wi-Fi.",
-                "skip_if": "You live in a tiny studio layout where the crib is 4 feet from your bed."
-            },
-            {
-                "name": "All-in-One Convertible Car Seats",
-                "slug": "all-in-one-convertible-car-seats",
-                "img_q": "car seat safety child",
-                "brands": ["Graco", "Britax", "Chicco", "Nuna", "Evenflo"],
-                "models": ["4Ever DLX Grad 4-in-1 (10-Year Use)", "One4Life ClickTight All-in-One", "OneFit ClearTex All-in-One Slim", "REVV / RAVA Flame-Retardant-Free", "Revolve360 Extend Rotational Seat"],
-                "specs": {"Growth Stages": "Rear-Facing (4–50 lbs), Forward-Facing (22–65 lbs) & Belt Booster (40–120 lbs)", "Installation System": "60-Second ClickTight / SnugLock Seatbelt Tensioner", "Safety Frame": "Steel-Reinforced Side-Impact Energy-Absorbing Shell", "Fabric": "GREENGUARD Gold Certified Machine-Washable Cover"},
-                "buy_if": "You want one crash-tested car seat that adapts from newborn hospital discharge all the way to age 10.",
-                "skip_if": "You specifically want a lightweight detachable infant carrier basket that clicks into a stroller."
-            },
-            {
-                "name": "Compact Travel Strollers",
-                "slug": "compact-overhead-bin-travel-strollers",
-                "img_q": "baby stroller park",
-                "brands": ["UPPAbaby", "Bugaboo", "Babyzen", "Ergobaby", "Mompush"],
-                "models": ["Minu V2 One-Hand Fold Travel", "Butterfly 1-Second Ultra-Compact", "YOYO2 IATA Overhead-Bin Stroller", "Metro+ Deluxe Padded Compact", "Lithe V2 Lightweight Airplane Stroller"],
-                "specs": {"Folded Dimensions": "IATA Airline Overhead-Bin Compliant One-Hand Fold", "Stroller Weight": "13.6 lbs to 16.9 lbs Aircraft Aluminum Frame", "Suspension": "4-Wheel All-Terrain Spring Suspension + Puncture-Proof Tires", "Canopy": "UPF 50+ Extendable Water-Repellent Sunshade"},
-                "buy_if": "You fly with toddlers or navigate crowded city subways and want a stroller that folds into airplane overhead bins.",
-                "skip_if": "You want an oversized pneumatic-tire jogging stroller for rocky mountain trails."
-            }
-        ]
-    },
-    {
-        "category": "Lawn, Patio & Power Tools",
-        "cat_slug": "lawn-patio-power-tools",
-        "icon": "🛠️",
-        "img_keyword": "power drill tools workshop",
-        "subcategories": [
-            {
-                "name": "Brushless Cordless Drill Combos",
-                "slug": "brushless-cordless-drill-combo-kits",
-                "img_q": "cordless drill tool",
-                "brands": ["DEWALT", "Milwaukee", "Makita", "BOSCH", "RYOBI"],
-                "models": ["20V MAX XR Brushless Hammer Drill + Impact Kit", "M18 FUEL 2-Tool Brushless Combo", "18V LXT Lithium-Ion Sub-Compact Combo", "18V Freak 2-in-1 Bit/Socket Impact + Drill", "ONE+ HP 18V Brushless 2-Tool Kit"],
-                "specs": {"Motor Technology": "Brushless Copper Motor (57% More Runtime vs Brushed)", "Chuck & Collet": "1/2-Inch All-Metal Ratcheting Chuck + 1/4-Inch Hex Impact", "Torque Output": "Up to 1,800 in-lbs Fastening Torque / 2,000 RPM", "Battery Pack": "Includes Two Lithium-Ion Packs, Fast Charger & Hard Case"},
-                "buy_if": "You tackle home renovations, deck building, and furniture assembly and want pro-grade torque that lasts a decade.",
-                "skip_if": "You only tighten a loose eyeglass screw once a year."
-            },
-            {
-                "name": "Robotic Lawn Mowers",
-                "slug": "wire-free-robotic-lawn-mowers",
-                "img_q": "lawn mower grass garden",
-                "brands": ["Mammotion", "Segway Navimow", " Greenworks", "EGO Power+", "WORX"],
-                "models": ["LUBA 2 AWD RTK Wire-Free Mower", "i105N / H-Series GPS Boundary-Free", "60V Pro 21-Inch Self-Propelled Dual-Port", "Power+ LM2156SP Select Cut XP", "Landroid Vision AI Camera Mower"],
-                "specs": {"Navigation / Drive": "RTK-GNSS + 3D Vision Wire-Free / High-Torque Brushless Self-Propelled", "Slope Climbing": "Handles Up to 45% – 80% (38°) Yard Incline Gradients", "Cutting Deck": "Multi-Blade Mulching Micro-Clipping System", "Weather Sensor": "Auto-Rain Dock Return + IPX6 Hose-Washable Deck"},
-                "buy_if": "You want a manicured lawn every morning without pushing a loud, fume-heavy gas mower in summer humidity.",
-                "skip_if": "Your yard consists entirely of gravel xeriscaping with no grass."
-            },
-            {
-                "name": "Electric Pressure Washers",
-                "slug": "electric-high-psi-pressure-washers",
-                "img_q": "pressure washer cleaning",
-                "brands": ["Westinghouse", "Sun Joe", "Giraffe Tools", "Greenworks", "Craftsman"],
-                "models": ["ePX3100v 2300 PSI Anti-Tip Pro", "SPX3000 2030 PSI Dual Detergent Tank", "Grandfalls Wall-Mounted 100-Ft Retractable", "Pro 3000 PSI Brushless TruBrushless", "2100 MAX PSI Cold-Water Foam Cannon Kit"],
-                "specs": {"Cleaning Power": "2,030 to 3,000 MAX PSI @ 1.76 – 2.0 GPM Water Flow", "Pump System": "Total Stop System (TSS) Auto-Trigger Pump Saver", "Nozzle Array": "Quick-Connect 0°, 15°, 25°, 40° Steel Tips + Foam Cannon", "Safety": "35-Foot GFCI Inline Weatherproof Power Cord"},
-                "buy_if": "You want to strip driveway algae, wash foam onto cars, and blast patio mildew without carburetor maintenance.",
-                "skip_if": "You have no outdoor garden hose spigot at your property."
-            }
-        ]
-    },
-    {
-        "category": "Travel Luggage & Carry-Ons",
-        "cat_slug": "travel-luggage-carry-ons",
-        "icon": "🧳",
-        "img_keyword": "suitcase luggage airport travel",
-        "subcategories": [
-            {
-                "name": "Polycarbonate Hardshell Spinners",
-                "slug": "polycarbonate-hardshell-spinner-luggage",
-                "img_q": "suitcase luggage travel",
-                "brands": ["Samsonite", "Travelpro", "Level8", "Delsey Paris", "Coolife"],
-                "models": ["Freeform / Omni 2 Hardside Expandable", "Maxlite Air / Platinum Elite Spinner", "Luminous Textured 20-Inch Carry-On", "Chatelet Air 2.0 / Helium Aero", "3-Piece ABS+PC TSA Lock Spinner Set"],
-                "specs": {"Shell Material": "100% Virgin Makrolon Polycarbonate Impact-Flex Shell", "Wheel System": "360° Hinomoto / Dual-Ball-Bearing Silent Spinner Wheels", "Security": "Recessed TSA-Accepted 3-Dial Combination Lock + YKK Zippers", "Expansion": "2-Inch Zippered Gusset Expansion + Cross-Strap Divider"},
-                "buy_if": "You want a crack-resistant carry-on that glides effortlessly across carpeted airport terminals.",
-                "skip_if": "You exclusively hike rough dirt paths where wheeled suitcases cannot roll."
-            },
-            {
-                "name": "TSA Laptop Travel Backpacks",
-                "slug": "tsa-laptop-travel-backpacks",
-                "img_q": "backpack laptop travel",
-                "brands": ["Peak Design", "Osprey", "Nomatic", "MATEIN", "SwissGear"],
-                "models": ["Travel Backpack 45L Weatherproof", "Farpoint 40 / Daylite Expandable", "40L Travel Bag V2 Convertible", "Carry-On 40L Flight-Approved Weekender", "1900 ScanSmart 17-Inch TSA Backpack"],
-                "specs": {"Capacity": "30L to 45L Clamshell Suitcase-Style Main Opening", "Laptop Protection": "Suspended Padded 16-Inch / 17.3-Inch TSA Lay-Flat Sleeve", "Fabric": "Water-Resistant 400D–900D Recycled Nylon + Luggage Pass-Through", "Ergonomics": "Breathable Air-Mesh Back Panel + Tuck-Away Hip Belt"},
-                "buy_if": "You travel One-Bag style on budget or international airlines and want to avoid checked-bag fees and lost luggage.",
-                "skip_if": "You pack 5 pairs of formal shoes and heavy winter coats for 3-week cruises."
-            },
-            {
-                "name": "Compression Packing Cubes",
-                "slug": "compression-travel-packing-cubes",
-                "img_q": "travel bag organizer",
-                "brands": ["Peak Design", "Eagle Creek", "BAGSMART", "Thule", "Gonex"],
-                "models": ["Ultralight Tear-Away Compression Cubes", "Pack-It Isolate Compression Set", "6-Piece Double-Zipper Mesh Set", "Clean/Dirty Divided Water-Resistant Cube", " Ripstop Nylon 6-Set Organizer"],
-                "specs": {"Compression Ratio": "Dual-Zipper Gusset Compresses Clothing Volume by 40%–50%", "Textile": "Ultralight 70D Self-Healing Ripstop Nylon / Breathable Mesh", "Organization": "Internal Clean/Dirty Laundered Compartment Divider", "Durability": "Reinforced Cord Pulls & Snag-Free Gusseted Seams"},
-                "buy_if": "You want to fit 7 days of outfits into a single 20-inch carry-on while keeping clean and worn clothes separated.",
-                "skip_if": "You travel with hanging garment bags only."
-            }
-        ]
-    },
-    {
-        "category": "Coffee, Tea & Craft Beverage",
-        "cat_slug": "coffee-tea-craft-beverage",
-        "icon": "☕",
-        "img_keyword": "coffee grinder espresso kettle",
-        "subcategories": [
-            {
-                "name": "Conical Burr Coffee Grinders",
-                "slug": "conical-flat-burr-coffee-grinders",
-                "img_q": "coffee beans grinder",
-                "brands": ["Fellow", "Baratza", "OXO", "Breville", "1Zpresso"],
-                "models": ["Opus All-Purpose / Ode Brew Gen 2", "Encore ESP Espresso & Filter Burr", "Brew Stainless Steel Conical Burr", "Smart Grinder Pro 60-Setting LCD", "J-Ultra / K-Ultra Precision Hand Grinder"],
-                "specs": {"Burr Geometry": "40mm–64mm Hardened Stainless Steel Conical / Flat Burrs", "Grind Settings": "31 to 60 Micro-Stepped Settings (Turkish/Espresso to Cold Brew)", "Anti-Static Tech": "Ionizer Plasma Anti-Static Chute (Zero Chaff Mess)", "Retention": "Low-Retention Single-Dose Hopper + Magnetic Catch Cup"},
-                "buy_if": "You want uniform particle size distribution that unlocks sweet, balanced flavor notes in espresso and pour-over coffee.",
-                "skip_if": "You only buy pre-ground supermarket tin coffee."
-            },
-            {
-                "name": "Variable-Temp Gooseneck Kettles",
-                "slug": "variable-temp-gooseneck-electric-kettles",
-                "img_q": "kettle tea coffee pour over",
-                "brands": ["Fellow", "Bonavita", "COSORI", "OXO", "Hario"],
-                "models": ["Stagg EKG Pro Studio Electric Kettle", "1.0L Digital Variable Temperature", "Smart Gooseneck 5-Preset Bluetooth", "Brew Adjustable Temperature Pour-Over", "Buono V60 Temperature Control"],
-                "specs": {"Temperature Precision": "104°F to 212°F Degree-by-Degree PID Hold (60-Min Keep Warm)", "Spout Profile": "Precision Counterbalanced Slow-Flow Gooseneck Spout", "Interior Body": "100% Food-Grade 304 18/8 Stainless Steel (Zero Plastic Contact)", "Heating Power": "1200W Quick-Boil Element + Boil-Dry Auto-Shutoff"},
-                "buy_if": "You brew specialty V60/Chemex pour-over coffee or delicate green, oolong, and matcha teas requiring exact temperatures.",
-                "skip_if": "You just need a wide-spout pot to boil 2 liters of pasta water."
-            },
-            {
-                "name": "Cold Brew & Nitro Makers",
-                "slug": "cold-brew-nitro-coffee-makers",
-                "img_q": "iced coffee glass",
-                "brands": ["OXO", "Takeya", "KitchenAid", "Vinci", "Toddy"],
-                "models": ["Good Grips 32-Oz Compact Cold Brewer", "Patented Deluxe 2-Qt Airtight Pitcher", "38-Oz Stainless Tap Refrigerator Brewer", "Express Electric Cold Brew in 10 Mins", " Artisan Commercial Cold Brew System"],
-                "specs": {"Filtration": "Ultra-Fine Reusable Stainless Steel Mesh + Paper Micro-Filter", "Extraction Method": "Rainmaker Perforated Water Dispersal / Rapid Vacuum Pulse", "Carafe Material": "Thermal Shock-Resistant Borosilicate Glass / Tritan", "Concentrate Yield": "Up to 14 Servings of Low-Acid Smooth Concentrate (2-Week Fridge Life)"},
-                "buy_if": "You love smooth, 65% less-acidic iced coffee and want to stop spending $6.50 daily at coffee chains.",
-                "skip_if": "You exclusively drink piping-hot espresso shots."
+                "name": "In-Wall Matter Dimmer Switches",
+                "slug": "in-wall-matter-smart-dimmer-switches",
+                "img_q": "light switch wall interior",
+                "brands": ["Lutron Caséta", "Inovelli", "Leviton", "TP-Link Tapo", "Kasa Smart"],
+                "models": ["Diva Smart Dimmer Starter Kit + Pico Remote", "White Series 2-1 Smart Switch (Matter-Over-Thread)", "Decora Smart Dimmer (2nd Gen Matter Certified)", "S505D Matter Smart Wi-Fi Dimmer (3-Pack)", "HS220P3 Single-Pole Smart Dimmer Bundle"],
+                "specs": {
+                    "Wiring Flexibility": "Works With or Without Neutral Wire (Lutron / Inovelli)",
+                    "Multi-Way Support": "Single-Pole & 3-Way Staircase/Hallway Circuit Ready",
+                    "Load Rating": "150W Dimmable LED / CFL & 600W Incandescent/Halogen",
+                    "Safety Listing": "UL / ETL Listed for US & Canadian 120V 60Hz Electrical Boxes"
+                },
+                "buy_if": "You want smart voice and schedule lighting control while keeping physical wall switches intuitive for family and guests.",
+                "skip_if": "Your home uses low-voltage proprietary DMX commercial lighting panels."
             }
         ]
     }
 ]
 
 EDITIONS = [
-    ("2026 Pro Edition", "updated 2026 top-seller configuration engineered for daily reliability"),
-    ("Complete Starter Bundle", "all-in-one bundle packaged with essential accessories"),
-    ("Signature Series", "flagship consumer choice backed by verified specifications"),
-    ("Next-Gen Performance Spec", "precision-engineered hardware revision with improved efficiency")
+    ("2026 Pro Security Bundle", "updated 2026 hardware revision featuring encrypted local storage and extended range"),
+    ("Whole-Home Starter Kit", "complete multi-room security package engineered for rapid DIY installation"),
+    ("Commercial-Grade Spec", "heavy-duty weather-sealed edition built for 24/7 continuous property protection")
 ]
 
 
 def slugify(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-") or "item"
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-") or "security-device"
 
 
 def make_amazon_url(query: str) -> str:
@@ -453,16 +384,16 @@ def save_image_cache(cache: dict):
 
 def fetch_free_stock_image(query: str, variant_idx: int, cache: dict) -> dict:
     """
-    Mengambil gambar gratis resolusi tinggi dari API publik tanpa API key:
+    Mengambil gambar gratis berlisensi bebas dari API publik tanpa API key:
     1. Openverse Public API (https://api.openverse.org/v1/images/)
     2. Wikimedia Commons Public API (https://commons.wikimedia.org/w/api.php)
-    3. Fallback deterministik ke LoremFlickr Stock Photo CDN agar 100% bebas broken-image.
+    3. Fallback deterministik ke LoremFlickr Stock Photo CDN agar gambar selalu tampil.
     """
     cache_key = f"{query}_{variant_idx % 5}"
     if cache_key in cache:
         return cache[cache_key]
 
-    # 1. Coba Openverse Public API (Tanpa API Key)
+    # 1. Openverse Public API (Tanpa API Key)
     try:
         ov_url = f"https://api.openverse.org/v1/images/?q={quote_plus(query)}&page_size=6"
         r = requests.get(ov_url, headers=HEADERS, timeout=6)
@@ -481,7 +412,7 @@ def fetch_free_stock_image(query: str, variant_idx: int, cache: dict) -> dict:
     except Exception:
         pass
 
-    # 2. Coba Wikimedia Commons Public MediaWiki API (Tanpa API Key)
+    # 2. Wikimedia Commons Public MediaWiki API (Tanpa API Key)
     try:
         wm_url = (
             "https://commons.wikimedia.org/w/api.php"
@@ -508,7 +439,7 @@ def fetch_free_stock_image(query: str, variant_idx: int, cache: dict) -> dict:
     # 3. Fallback deterministik ke CDN foto stok bebas lisensi
     clean_tag = re.sub(r"[^a-zA-Z0-9]", ",", query.split()[0])
     fallback_obj = {
-        "url": f"https://loremflickr.com/640/440/{clean_tag}?lock={variant_idx + 100}",
+        "url": f"https://loremflickr.com/640/440/{clean_tag}?lock={variant_idx + 200}",
         "credit": "Creative Commons Public Stock"
     }
     cache[cache_key] = fallback_obj
@@ -526,19 +457,20 @@ def init_or_load_state() -> dict:
         except Exception:
             pass
 
-    # Bangun antrean 600 produk di 10 kategori terlaris (30 subkategori)
+    # Bangun antrean 540 produk Smart Home & Security Tech
     products = []
     idx = 1
     for ed_name, ed_desc in EDITIONS:
-        for model_i in range(5):
+        for model_i in range(10):
             for cat in TAXONOMY:
                 for sub in cat["subcategories"]:
                     brand = sub["brands"][model_i % len(sub["brands"])]
                     model = sub["models"][model_i % len(sub["models"])]
-                    title = f"{brand} {model} ({ed_name})"
+                    series_tag = "Series A" if model_i < 5 else "Pro Series B"
+                    title = f"{brand} {model} — {ed_name} ({series_tag})"
                     slug = f"{slugify(brand)}-{slugify(model)}-{slugify(ed_name)}-{idx}"
                     products.append({
-                        "id": f"OP-{idx:04d}",
+                        "id": f"AD-{idx:04d}",
                         "idx": idx,
                         "slug": slug,
                         "name": title,
@@ -552,18 +484,18 @@ def init_or_load_state() -> dict:
                         "image_url": "",
                         "image_credit": "",
                         "search_query": f"{brand} {model} {sub['name']}",
-                        "summary": f"The {title} is an Amazon top-ranked {sub['name'].lower()}—an {ed_desc}.",
+                        "summary": f"The {title} is an Amazon best-selling {sub['name'].lower()}—an {ed_desc}.",
                         "specs": sub["specs"],
                         "buy_if": sub["buy_if"],
                         "skip_if": sub["skip_if"],
                         "pros": [
-                            f"Authentic {brand} build quality with verified performance metrics",
+                            f"Authentic {brand} security architecture with encrypted telemetry",
                             f"{list(sub['specs'].keys())[0]}: {list(sub['specs'].values())[0]}",
                             f"{list(sub['specs'].keys())[1]}: {list(sub['specs'].values())[1]}"
                         ],
                         "cons": [
-                            "High consumer demand on Amazon can occasionally impact specific color/bundle stock",
-                            "Verify exact dimensions and compatibility prior to checkout"
+                            "Requires a stable 2.4GHz/5GHz Wi-Fi, PoE, or Thread/Zigbee signal at mounting point",
+                            "Verify physical mounting bracket or junction box dimensions before installation"
                         ],
                         "published": False,
                         "published_at": ""
@@ -588,47 +520,47 @@ def get_common_styles() -> str:
             --bg: #ffffff;
             --surface: #f8fafc;
             --border: #e2e8f0;
-            --navy: #0f172a;
+            --navy: #090d16;
             --slate: #475569;
-            --indigo: #4f46e5;
-            --indigo-dark: #3730a3;
-            --indigo-light: #eef2ff;
-            --amber: #d97706;
+            --cyan: #0284c7;
+            --cyan-dark: #0369a1;
+            --cyan-light: #e0f2fe;
+            --emerald: #059669;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--navy); line-height: 1.65; }
         .compliance-bar { background: var(--navy); color: #f8fafc; font-size: 0.79rem; text-align: center; padding: 9px 16px; }
-        .compliance-bar strong { color: #818cf8; }
+        .compliance-bar strong { color: #38bdf8; }
         header { background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
         .nav-wrap { max-width: 1260px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
         .brand { font-size: 1.45rem; font-weight: 900; color: var(--navy); text-decoration: none; letter-spacing: -0.5px; }
-        .brand span { color: var(--indigo); }
+        .brand span { color: var(--cyan); }
         .nav-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .nav-link { color: var(--navy); text-decoration: none; font-size: 0.9rem; font-weight: 600; padding: 6px 10px; border-radius: 6px; }
-        .nav-link:hover { background: var(--surface); color: var(--indigo); }
+        .nav-link:hover { background: var(--surface); color: var(--cyan); }
         .mega-dropdown { position: relative; display: inline-block; }
-        .mega-menu { display: none; position: absolute; right: 0; top: 100%; width: 920px; max-width: 94vw; background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 22px 40px rgba(15,23,42,0.16); padding: 22px; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 16px; z-index: 200; }
+        .mega-menu { display: none; position: absolute; right: 0; top: 100%; width: 860px; max-width: 94vw; background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 22px 40px rgba(9,13,22,0.16); padding: 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; z-index: 200; }
         .mega-dropdown:hover .mega-menu { display: grid; }
-        .mega-col h4 { font-size: 0.83rem; color: var(--indigo-dark); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
-        .mega-col a { display: block; color: var(--slate); text-decoration: none; font-size: 0.78rem; padding: 3px 0; }
-        .mega-col a:hover { color: var(--indigo); font-weight: 600; }
+        .mega-col h4 { font-size: 0.85rem; color: var(--cyan-dark); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+        .mega-col a { display: block; color: var(--slate); text-decoration: none; font-size: 0.8rem; padding: 3px 0; }
+        .mega-col a:hover { color: var(--cyan); font-weight: 600; }
         .container { max-width: 1260px; margin: 36px auto; padding: 0 20px; }
-        .btn-amz { display: inline-block; background: var(--indigo); color: #ffffff; font-weight: 700; text-decoration: none; padding: 11px 18px; border-radius: 8px; font-size: 0.86rem; text-align: center; transition: background 0.15s; }
-        .btn-amz:hover { background: var(--indigo-dark); }
+        .btn-amz { display: inline-block; background: var(--cyan); color: #ffffff; font-weight: 700; text-decoration: none; padding: 11px 18px; border-radius: 8px; font-size: 0.86rem; text-align: center; transition: background 0.15s; }
+        .btn-amz:hover { background: var(--cyan-dark); }
         .btn-outline { display: inline-block; background: #fff; color: var(--navy); border: 1px solid var(--border); font-weight: 600; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 0.84rem; text-align: center; }
-        .btn-outline:hover { border-color: var(--indigo); color: var(--indigo); }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+        .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(305px, 1fr)); gap: 22px; }
         .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s, box-shadow 0.15s; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(15,23,42,0.07); border-color: #cbd5e1; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(9,13,22,0.07); border-color: #cbd5e1; }
         .card-img { width: 100%; height: 190px; object-fit: cover; background: #f1f5f9; border-bottom: 1px solid var(--border); }
         .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
-        .pill { display: inline-block; background: var(--indigo-light); color: var(--indigo-dark); font-size: 0.73rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; width: fit-content; }
+        .pill { display: inline-block; background: var(--cyan-light); color: var(--cyan-dark); font-size: 0.73rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; width: fit-content; }
         .micro-disclosure { font-size: 0.72rem; color: #64748b; margin: 10px 0 6px; }
         footer { background: var(--surface); border-top: 1px solid var(--border); margin-top: 70px; padding: 48px 20px; color: var(--slate); font-size: 0.84rem; }
         .footer-inner { max-width: 1260px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
         .footer-inner h4 { color: var(--navy); margin-bottom: 10px; font-size: 0.94rem; }
         .footer-inner a { display: block; color: var(--slate); text-decoration: none; padding: 3px 0; }
-        .footer-inner a:hover { color: var(--indigo); }
+        .footer-inner a:hover { color: var(--cyan); }
     """
 
 
@@ -641,28 +573,28 @@ def build_header_html() -> str:
         )
         mega_cols += f"""
         <div class="mega-col">
-            <h4><a href="{SITE_URL}/categories/{cat['cat_slug']}.html" style="color:var(--indigo-dark);font-size:0.84rem;">{cat['icon']} {cat['category']}</a></h4>
+            <h4><a href="{SITE_URL}/categories/{cat['cat_slug']}.html" style="color:var(--cyan-dark);font-size:0.85rem;">{cat['icon']} {cat['category']}</a></h4>
             {sub_links}
         </div>
         """
 
     return f"""
     <div class="compliance-bar">
-        <strong>AFFILIATE DISCLOSURE:</strong> As an Amazon Associate I earn from qualifying purchases. Stock imagery provided via Openverse &amp; Wikimedia Commons Public APIs.
+        <strong>AFFILIATE DISCLOSURE:</strong> As an Amazon Associate I earn from qualifying purchases. Stock photography provided via Openverse &amp; Wikimedia Commons Public APIs.
     </div>
     <header>
         <div class="nav-wrap">
-            <a href="{SITE_URL}/" class="brand">🌐 Omni<span>Prime10</span> US</a>
+            <a href="{SITE_URL}/" class="brand">🛡️ Aegis<span>Domus</span> US</a>
             <nav class="nav-links">
                 <a href="{SITE_URL}/" class="nav-link">Storefront</a>
                 <div class="mega-dropdown">
-                    <a href="#departments" class="nav-link">10 Best-Seller Categories &#9662;</a>
+                    <a href="#departments" class="nav-link">Smart Security Categories &#9662;</a>
                     <div class="mega-menu">
                         {mega_cols}
                     </div>
                 </div>
-                <a href="{SITE_URL}/#featured" class="nav-link">Featured Picks</a>
-                <a href="{SITE_URL}/#reviews" class="nav-link">12H Buying Guides</a>
+                <a href="{SITE_URL}/#featured" class="nav-link">Featured Systems</a>
+                <a href="{SITE_URL}/#reviews" class="nav-link">12H Security Reviews</a>
                 <a href="{SITE_URL}/legal.html" class="nav-link">Policies</a>
             </nav>
         </div>
@@ -671,32 +603,24 @@ def build_header_html() -> str:
 
 
 def build_footer_html(today: str) -> str:
-    cat_links_1 = "".join(
+    cat_links = "".join(
         f'<a href="{SITE_URL}/categories/{c["cat_slug"]}.html">{c["icon"]} {c["category"]}</a>'
-        for c in TAXONOMY[:5]
-    )
-    cat_links_2 = "".join(
-        f'<a href="{SITE_URL}/categories/{c["cat_slug"]}.html">{c["icon"]} {c["category"]}</a>'
-        for c in TAXONOMY[5:]
+        for c in TAXONOMY
     )
     return f"""
     <footer>
         <div class="footer-inner">
             <div>
-                <h4>OmniPrime10 US Storefront</h4>
-                <p>Independent US buying-guide and product discovery platform covering Amazon's 10 best-selling consumer departments. Updated automatically every 12 hours.</p>
+                <h4>AegisDomus US Security Storefront</h4>
+                <p>Independent US buying-guide and specification comparison platform dedicated to Smart Home &amp; Physical Security Tech. Updated automatically every 12 hours.</p>
                 <p style="margin-top:10px;font-weight:700;color:var(--navy);">As an Amazon Associate I earn from qualifying purchases.</p>
             </div>
             <div>
-                <h4>Departments (1–5)</h4>
-                {cat_links_1}
+                <h4>Security &amp; Automation Departments</h4>
+                {cat_links}
             </div>
             <div>
-                <h4>Departments (6–10)</h4>
-                {cat_links_2}
-            </div>
-            <div>
-                <h4>Compliance & Feeds</h4>
+                <h4>Compliance &amp; Indexing Feeds</h4>
                 <a href="{SITE_URL}/legal.html#disclosure">Amazon Affiliate Disclosure</a>
                 <a href="{SITE_URL}/legal.html#privacy">Privacy Policy</a>
                 <a href="{SITE_URL}/legal.html#terms">Terms of Use</a>
@@ -705,7 +629,7 @@ def build_footer_html(today: str) -> str:
             </div>
         </div>
         <div style="max-width:1260px;margin:28px auto 0;padding-top:20px;border-top:1px solid var(--border);text-align:center;font-size:0.78rem;">
-            &copy; {today[:4]} OmniPrime10 US. Not operated, endorsed, or sponsored by Amazon.com, Inc. Last 12-Hour Automated Build: {today}.
+            &copy; {today[:4]} AegisDomus US. Not operated, endorsed, or sponsored by Amazon.com, Inc. Last 12-Hour Automated Build: {today}.
         </div>
     </footer>
     """
@@ -763,8 +687,8 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{prod['name']} Review, Specs & Buying Guide | OmniPrime10 US</title>
-    <meta name="description" content="{prod['summary']} Compare verified specifications, pros, cons, and check live price on Amazon.">
+    <title>{prod['name']} Review, Specs & Security Guide | AegisDomus US</title>
+    <meta name="description" content="{prod['summary']} Compare verified security specifications, pros, cons, and check live price on Amazon.">
     <link rel="canonical" href="{page_url}">
     <script type="application/ld+json">{json.dumps(faq_schema)}</script>
     <style>
@@ -776,6 +700,9 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
         .spec-table th {{ background: var(--surface); width: 34%; }}
         .verdict-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin: 24px 0; }}
         .v-box {{ background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }}
+        .calc-box {{ background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin: 28px 0; }}
+        .calc-row {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 12px; }}
+        select {{ width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.9rem; background: #fff; }}
         @media (max-width: 780px) {{ .hero-box {{ grid-template-columns: 1fr; }} }}
     </style>
 </head>
@@ -783,9 +710,9 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
     {build_header_html()}
     <main class="container">
         <div style="font-size:0.84rem;color:var(--slate);margin-bottom:16px;">
-            <a href="{SITE_URL}/" style="color:var(--indigo);text-decoration:none;font-weight:600;">Home</a> &rsaquo;
-            <a href="{SITE_URL}/categories/{prod['cat_slug']}.html" style="color:var(--indigo);text-decoration:none;font-weight:600;">{prod['category']}</a> &rsaquo;
-            <a href="{SITE_URL}/categories/{prod['sub_slug']}.html" style="color:var(--indigo);text-decoration:none;font-weight:600;">{prod['subcategory']}</a> &rsaquo;
+            <a href="{SITE_URL}/" style="color:var(--cyan);text-decoration:none;font-weight:600;">Home</a> &rsaquo;
+            <a href="{SITE_URL}/categories/{prod['cat_slug']}.html" style="color:var(--cyan);text-decoration:none;font-weight:600;">{prod['category']}</a> &rsaquo;
+            <a href="{SITE_URL}/categories/{prod['sub_slug']}.html" style="color:var(--cyan);text-decoration:none;font-weight:600;">{prod['subcategory']}</a> &rsaquo;
             <span>{prod['name']}</span>
         </div>
 
@@ -795,7 +722,7 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
                 <div style="font-size:0.7rem;color:#64748b;margin-top:4px;text-align:center;">Illustrative Category Photo: {prod['image_credit']}</div>
             </div>
             <div>
-                <span class="pill">{prod['cat_icon']} {prod['subcategory']} &bull; Amazon Best-Seller Pick</span>
+                <span class="pill">{prod['cat_icon']} {prod['subcategory']} &bull; Smart Security Pick</span>
                 <h1 style="font-size:1.9rem;line-height:1.25;margin-bottom:10px;">{prod['name']}</h1>
                 <p style="color:var(--slate);margin-bottom:14px;">{prod['summary']}</p>
                 <div class="micro-disclosure">Affiliate Disclosure: As an Amazon Associate I earn from qualifying purchases.</div>
@@ -806,9 +733,35 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
             </div>
         </section>
 
+        <section class="calc-box">
+            <h2 style="font-size:1.2rem;">Interactive Smart Home Network &amp; NVR Storage Estimator</h2>
+            <div class="calc-row">
+                <div>
+                    <label style="font-size:0.8rem;color:var(--slate);display:block;margin-bottom:4px;">Number of Smart Security Devices / Cameras</label>
+                    <select id="devCount" onchange="calcNet()">
+                        <option value="2">1 – 2 Devices (Starter Entry)</option>
+                        <option value="4" selected>3 – 4 Devices (Standard Home)</option>
+                        <option value="8">6 – 8 Devices (Full Perimeter)</option>
+                        <option value="16">12 – 16 Devices (Large Estate)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:0.8rem;color:var(--slate);display:block;margin-bottom:4px;">Video Stream / Telemetry Resolution</label>
+                    <select id="resBitrate" onchange="calcNet()">
+                        <option value="2">1080p HD / Smart Sensor Telemetry (2 Mbps)</option>
+                        <option value="5" selected>2K QHD High-Bitrate Stream (5 Mbps)</option>
+                        <option value="8">4K UHD H.265 Stream (8 Mbps)</option>
+                    </select>
+                </div>
+            </div>
+            <div id="calcOutput" style="margin-top:14px;padding:12px 16px;background:#fff;border-left:4px solid var(--cyan);border-radius:6px;font-weight:700;font-size:0.92rem;">
+                Estimated Upload Bandwidth: 20 Mbps Minimum &bull; Recommended Local Storage for 14-Day Archive: 2 TB Drive
+            </div>
+        </section>
+
         <div class="verdict-grid">
             <div class="v-box">
-                <h3 style="color:#047857;margin-bottom:8px;">Who Should Buy This</h3>
+                <h3 style="color:var(--emerald);margin-bottom:8px;">Who Should Buy This</h3>
                 <p style="font-size:0.93rem;color:var(--slate);">{prod['buy_if']}</p>
             </div>
             <div class="v-box">
@@ -833,10 +786,20 @@ def render_product_page(prod: dict, related: list, today: str) -> str:
             </div>
         </div>
 
-        <h2 style="font-size:1.4rem;margin:40px 0 18px;">Related Best-Selling Picks</h2>
+        <h2 style="font-size:1.4rem;margin:40px 0 18px;">Related Smart Security Alternatives</h2>
         <div class="grid-3">{rel_cards}</div>
     </main>
     {build_footer_html(today)}
+    <script>
+        function calcNet() {{
+            const devs = parseInt(document.getElementById('devCount').value);
+            const mbps = parseInt(document.getElementById('resBitrate').value);
+            const totalMbps = devs * mbps;
+            const storageTb = Math.max(1, Math.ceil((devs * mbps * 0.12)));
+            document.getElementById('calcOutput').innerText =
+                'Estimated Upload Bandwidth: ' + totalMbps + ' Mbps Minimum • Recommended Local Storage for 14-Day Archive: ' + storageTb + ' TB Drive';
+        }}
+    </script>
 </body>
 </html>"""
 
@@ -849,8 +812,8 @@ def render_review_article(group: list, cycle_num: int, art_idx: int, today: str)
     os.makedirs(REVIEWS_DIR, exist_ok=True)
     sub = group[0]["subcategory"]
     cat = group[0]["category"]
-    slug = f"best-{slugify(sub)}-review-comparison-c{cycle_num}-{art_idx}"
-    title = f"Top 4 Best-Selling {sub} & Buying Guide ({today[:4]} Review)"
+    slug = f"best-{slugify(sub)}-security-review-c{cycle_num}-{art_idx}"
+    title = f"Top 4 {sub} Compared ({today[:4]} Smart Security Buyer's Guide)"
     page_url = f"{SITE_URL}/reviews/{slug}.html"
     cover_img = group[0]["image_url"]
 
@@ -873,10 +836,10 @@ def render_review_article(group: list, cycle_num: int, art_idx: int, today: str)
         <section style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px;display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;">
             <img src="{p['image_url']}" alt="{p['name']}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;border:1px solid var(--border);" loading="lazy">
             <div>
-                <span class="pill">Top Pick #{rank} &bull; {p['brand']}</span>
+                <span class="pill">Editor's Security Pick #{rank} &bull; {p['brand']}</span>
                 <h2 style="font-size:1.3rem;margin-bottom:8px;"><a href="{SITE_URL}/products/{p['slug']}.html" style="color:var(--navy);text-decoration:none;">{p['name']}</a></h2>
                 <p style="color:var(--slate);margin-bottom:8px;font-size:0.92rem;">{p['summary']}</p>
-                <p style="font-size:0.88rem;margin-bottom:6px;"><strong>Best For:</strong> {p['buy_if']}</p>
+                <p style="font-size:0.88rem;margin-bottom:6px;"><strong>Ideal Deployment:</strong> {p['buy_if']}</p>
                 <div class="micro-disclosure">As an Amazon Associate I earn from qualifying purchases.</div>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
                     <a href="{amz_url}" target="_blank" rel="nofollow sponsored noopener noreferrer" class="btn-amz">Check Price on Amazon &rarr;</a>
@@ -891,8 +854,8 @@ def render_review_article(group: list, cycle_num: int, art_idx: int, today: str)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | OmniPrime10 US</title>
-    <meta name="description" content="Side-by-side specification review and buyer's guide comparing {', '.join(p['name'] for p in group)}.">
+    <title>{title} | AegisDomus US</title>
+    <meta name="description" content="Side-by-side smart home security comparison of {', '.join(p['name'] for p in group)}.">
     <link rel="canonical" href="{page_url}">
     <style>
         {get_common_styles()}
@@ -905,14 +868,14 @@ def render_review_article(group: list, cycle_num: int, art_idx: int, today: str)
 <body>
     {build_header_html()}
     <main class="container">
-        <span class="pill">{cat} &rsaquo; 12-Hour Editorial Review</span>
+        <span class="pill">{cat} &rsaquo; 12-Hour Comparative Review</span>
         <h1 style="font-size:2rem;margin-bottom:12px;">{title}</h1>
-        <p style="color:var(--slate);max-width:860px;margin-bottom:22px;">Comparing top-selling {sub.lower()} requires looking closely at verified build materials, durability ratings, and real-world household suitability. Explore our side-by-side matrix and detailed model breakdowns below.</p>
+        <p style="color:var(--slate);max-width:860px;margin-bottom:22px;">Selecting reliable {sub.lower()} requires evaluating local storage encryption, wireless or PoE range, and Matter/HomeKit ecosystem support. Compare our top four hardware picks side-by-side below.</p>
 
         <div class="table-scroll">
             <table>
                 <thead>
-                    <tr><th>Specification</th>{th_cols}</tr>
+                    <tr><th>Security Attribute</th>{th_cols}</tr>
                 </thead>
                 <tbody>
                     {matrix_rows}
@@ -936,7 +899,7 @@ def render_review_article(group: list, cycle_num: int, art_idx: int, today: str)
         "category": cat,
         "subcategory": sub,
         "image_url": cover_img,
-        "excerpt": f"Side-by-side comparison of {group[0]['name']}, {group[1]['name']}, and 2 more best-selling picks.",
+        "excerpt": f"Side-by-side security benchmark of {group[0]['name']}, {group[1]['name']}, and 2 more top systems.",
         "published_at": today,
         "url": page_url
     }
@@ -963,7 +926,7 @@ def render_category_and_subcategory_pages(published_prods: list, today: str) -> 
                         <div class="micro-disclosure">As an Amazon Associate I earn from qualifying purchases.</div>
                         <div style="display:flex;gap:8px;">
                             <a href="{amz_url}" target="_blank" rel="nofollow sponsored noopener noreferrer" class="btn-amz" style="flex:1;">Check Price on Amazon</a>
-                            <a href="{SITE_URL}/products/{p['slug']}.html" class="btn-outline">Review</a>
+                            <a href="{SITE_URL}/products/{p['slug']}.html" class="btn-outline">Specs</a>
                         </div>
                     </div>
                 </div>
@@ -975,7 +938,7 @@ def render_category_and_subcategory_pages(published_prods: list, today: str) -> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{heading} — Best-Selling Buying Guides | OmniPrime10 US</title>
+    <title>{heading} — Smart Home &amp; Security Guides | AegisDomus US</title>
     <meta name="description" content="{desc}">
     <link rel="canonical" href="{SITE_URL}/categories/{slug}.html">
     <style>{get_common_styles()}</style>
@@ -985,7 +948,7 @@ def render_category_and_subcategory_pages(published_prods: list, today: str) -> 
     <main class="container">
         <h1 style="font-size:2rem;margin-bottom:8px;">{heading}</h1>
         <p style="color:var(--slate);margin-bottom:28px;">{desc}</p>
-        <div class="grid-3">{cards or '<p>Products in this subcategory will populate in the next 12-hour automated cycle.</p>'}</div>
+        <div class="grid-3">{cards or '<p>New security devices in this subcategory will populate in the next 12-hour automated cycle.</p>'}</div>
     </main>
     {build_footer_html(today)}
 </body>
@@ -999,7 +962,7 @@ def render_category_and_subcategory_pages(published_prods: list, today: str) -> 
         write_listing(
             cat["cat_slug"],
             f"{cat['icon']} {cat['category']}",
-            f"Compare verified specifications and Amazon best-seller links across {', '.join(s['name'] for s in cat['subcategories'])}.",
+            f"Compare verified security specifications and Amazon best-seller links across {', '.join(s['name'] for s in cat['subcategories'])}.",
             c_items
         )
         for sub in cat["subcategories"]:
@@ -1007,7 +970,7 @@ def render_category_and_subcategory_pages(published_prods: list, today: str) -> 
             write_listing(
                 sub["slug"],
                 f"{sub['name']} ({cat['category']})",
-                f"Top-rated {sub['name'].lower()} compared side-by-side for US buyers.",
+                f"Side-by-side comparison of top-rated {sub['name'].lower()} for US homeowners.",
                 s_items
             )
 
@@ -1020,7 +983,7 @@ def render_legal_page(today: str):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Affiliate Disclosure, Privacy Policy & Terms | OmniPrime10 US</title>
+    <title>Amazon Affiliate Disclosure, Privacy Policy &amp; Terms | AegisDomus US</title>
     <link rel="canonical" href="{SITE_URL}/legal.html">
     <style>
         {get_common_styles()}
@@ -1033,7 +996,7 @@ def render_legal_page(today: str):
         <div class="legal-box" id="disclosure">
             <h2>Amazon Associates Program Disclosure</h2>
             <p style="margin-top:8px;"><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
-            <p style="margin-top:8px;color:var(--slate);">OmniPrime10 US is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. Category photography is sourced from public Creative Commons APIs (Openverse &amp; Wikimedia Commons) for illustrative editorial purposes.</p>
+            <p style="margin-top:8px;color:var(--slate);">AegisDomus US is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. Category photography is retrieved via public Creative Commons APIs (Openverse &amp; Wikimedia Commons) for illustrative editorial use.</p>
         </div>
         <div class="legal-box" id="privacy">
             <h2>Privacy Policy</h2>
@@ -1041,7 +1004,7 @@ def render_legal_page(today: str):
         </div>
         <div class="legal-box" id="terms">
             <h2>Terms of Use</h2>
-            <p style="margin-top:8px;color:var(--slate);">All product specifications are compiled for comparative buying guidance. Always confirm current pricing, stock availability, and manufacturer warranty terms directly on Amazon.com.</p>
+            <p style="margin-top:8px;color:var(--slate);">All hardware specifications are compiled for comparative buying guidance. Always verify local electrical codes, voltage ratings, and current pricing directly on Amazon.com.</p>
         </div>
     </main>
     {build_footer_html(today)}
@@ -1067,10 +1030,10 @@ def render_storefront_homepage(published_prods: list, reviews: list, today: str)
             <div class="card-body">
                 <div>
                     <div style="font-size:2rem;margin-bottom:8px;">{c['icon']}</div>
-                    <h3 style="font-size:1.08rem;color:var(--navy);margin-bottom:6px;">{c['category']}</h3>
-                    <p style="font-size:0.82rem;color:var(--slate);">{subs}</p>
+                    <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:6px;">{c['category']}</h3>
+                    <p style="font-size:0.83rem;color:var(--slate);">{subs}</p>
                 </div>
-                <span style="margin-top:14px;font-size:0.84rem;font-weight:700;color:var(--indigo);">Shop Department &rarr;</span>
+                <span style="margin-top:14px;font-size:0.84rem;font-weight:700;color:var(--cyan);">Explore Security Category &rarr;</span>
             </div>
         </a>
         """
@@ -1085,7 +1048,7 @@ def render_storefront_homepage(published_prods: list, reviews: list, today: str)
                 <div>
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                         <span class="pill" style="margin:0;">{p['cat_icon']} {p['subcategory']}</span>
-                        <span style="font-size:0.74rem;font-weight:700;color:var(--amber);">★ Top Pick</span>
+                        <span style="font-size:0.74rem;font-weight:700;color:var(--emerald);">★ Verified Spec</span>
                     </div>
                     <h3 style="font-size:1.06rem;margin-bottom:8px;"><a href="{SITE_URL}/products/{p['slug']}.html" style="color:var(--navy);text-decoration:none;">{p['name']}</a></h3>
                     <p style="font-size:0.85rem;color:var(--slate);margin-bottom:10px;">{p['summary']}</p>
@@ -1113,13 +1076,13 @@ def render_storefront_homepage(published_prods: list, reviews: list, today: str)
                     <p style="font-size:0.85rem;color:var(--slate);">{r['excerpt']}</p>
                 </div>
                 <div style="margin-top:14px;">
-                    <a href="{SITE_URL}/reviews/{r['slug']}.html" class="btn-outline" style="width:100%;">Read 4-Product Review &rarr;</a>
+                    <a href="{SITE_URL}/reviews/{r['slug']}.html" class="btn-outline" style="width:100%;">Read 4-System Comparison &rarr;</a>
                 </div>
             </div>
         </article>
         """
 
-    filter_btns = '<button class="f-btn active" onclick="filterDept(\'all\', this)">All 10 Departments</button>'
+    filter_btns = '<button class="f-btn active" onclick="filterDept(\'all\', this)">All Security Systems</button>'
     for c in TAXONOMY:
         filter_btns += f'<button class="f-btn" onclick="filterDept(\'{c["cat_slug"]}\', this)">{c["icon"]} {c["category"]}</button>'
 
@@ -1128,20 +1091,20 @@ def render_storefront_homepage(published_prods: list, reviews: list, today: str)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniPrime10 US — Top 10 Amazon Best-Seller Departments & Buying Guides</title>
-    <meta name="description" content="Explore verified product reviews and side-by-side buying guides across Amazon's 10 best-selling categories: Smart Home, Pet Tech, Outdoor Gear, Fitness, Auto Tools, Audio, Baby, Power Tools, Luggage & Coffee.">
+    <title>AegisDomus US — Smart Home &amp; Security Tech Buying Guides &amp; Storefront</title>
+    <meta name="description" content="Compare verified specifications across 4K Solar Security Cameras, PoE NVR Systems, 3D Biometric Smart Locks, Dual-Cam Video Doorbells, Wi-Fi 7 Mesh Routers, and Ultrasonic Water Shutoff Valves.">
     <link rel="canonical" href="{SITE_URL}/">
     <style>
         {get_common_styles()}
-        .hero-banner {{ background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #ffffff; padding: 56px 20px; }}
+        .hero-banner {{ background: linear-gradient(135deg, #090d16 0%, #0c4a6e 100%); color: #ffffff; padding: 56px 20px; }}
         .hero-inner {{ max-width: 1260px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 32px; align-items: center; }}
-        .hero-badge {{ display: inline-block; background: rgba(129,140,248,0.2); border: 1px solid #818cf8; color: #c7d2fe; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }}
+        .hero-badge {{ display: inline-block; background: rgba(56,189,248,0.18); border: 1px solid #38bdf8; color: #7dd3fc; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }}
         .hero-banner h1 {{ font-size: 2.35rem; line-height: 1.2; margin-bottom: 14px; }}
         .search-bar {{ display: flex; gap: 10px; margin-top: 22px; max-width: 620px; }}
         .search-bar input {{ flex: 1; padding: 14px 18px; border-radius: 10px; border: none; font-size: 1rem; outline: none; }}
         .filter-row {{ display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0; }}
         .f-btn {{ background: var(--surface); border: 1px solid var(--border); color: var(--navy); padding: 7px 13px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }}
-        .f-btn.active, .f-btn:hover {{ background: var(--indigo); color: #fff; border-color: var(--indigo); }}
+        .f-btn.active, .f-btn:hover {{ background: var(--cyan); color: #fff; border-color: var(--cyan); }}
         .sec-head {{ display: flex; justify-content: space-between; align-items: baseline; margin: 46px 0 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; flex-wrap: wrap; gap: 10px; }}
         @media (max-width: 820px) {{ .hero-inner {{ grid-template-columns: 1fr; }} .hero-banner h1 {{ font-size: 1.85rem; }} }}
     </style>
@@ -1151,39 +1114,39 @@ def render_storefront_homepage(published_prods: list, reviews: list, today: str)
     <section class="hero-banner">
         <div class="hero-inner">
             <div>
-                <span class="hero-badge">10 BEST-SELLING DEPARTMENTS &bull; AUTO-UPDATED EVERY 12 HOURS</span>
-                <h1>The Complete US Buying-Guide Storefront Across 10 Top-Selling Categories</h1>
-                <p style="color:#e0e7ff;font-size:1.04rem;">Compare verified specifications across Smart Home Security, Automated Pet Care, Backcountry Camping, Home Gym Fitness, Automotive Diagnostics, Creator Audio, Baby Essentials, Power Tools, Travel Luggage & Specialty Coffee.</p>
+                <span class="hero-badge">SMART HOME &amp; SECURITY SPECIALIST &bull; AUTO-UPDATED EVERY 12 HOURS</span>
+                <h1>Next-Gen Perimeter Cameras, Biometric Locks &amp; Whole-Home Automation</h1>
+                <p style="color:#e0f2fe;font-size:1.04rem;">Compare verified specifications across 4K Dual-Lens Solar Cameras, Hardwired PoE NVR Kits, Palm-Vein &amp; Apple HomeKey Deadbolts, Package-Guard Doorbells, Wi-Fi 7 Mesh Firewalls, and Auto Water Shutoff Valves.</p>
                 <div class="search-bar">
-                    <input type="text" id="liveSearch" placeholder="Search across all 10 departments (e.g. eufy, Litter-Robot, YETI, Bowflex, Shure, Samsonite)..." onkeyup="runSearch()">
+                    <input type="text" id="liveSearch" placeholder="Search brand or system (e.g. Reolink, eufy, Schlage, UniFi, Ecobee, Matter, PoE)..." onkeyup="runSearch()">
                 </div>
             </div>
             <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:24px;">
-                <div style="font-size:0.78rem;color:#c7d2fe;font-weight:700;text-transform:uppercase;margin-bottom:6px;">Storefront Inventory</div>
-                <div style="font-size:1.6rem;font-weight:900;margin-bottom:4px;">{len(published_prods)} Active Products</div>
-                <div style="font-size:0.9rem;color:#e0e7ff;margin-bottom:14px;">{len(reviews)} Comparative Review Guides</div>
-                <a href="#featured" class="btn-amz" style="width:100%;background:#6366f1;">Explore Featured Best-Sellers &darr;</a>
+                <div style="font-size:0.78rem;color:#7dd3fc;font-weight:700;text-transform:uppercase;margin-bottom:6px;">Security Catalog Status</div>
+                <div style="font-size:1.6rem;font-weight:900;margin-bottom:4px;">{len(published_prods)} Verified Devices</div>
+                <div style="font-size:0.9rem;color:#e0f2fe;margin-bottom:14px;">{len(reviews)} Side-by-Side Security Guides</div>
+                <a href="#featured" class="btn-amz" style="width:100%;">Browse Featured Security Picks &darr;</a>
             </div>
         </div>
     </section>
 
     <main class="container">
         <div class="sec-head" id="departments">
-            <h2>Browse All 10 Best-Selling Amazon Departments</h2>
-            <span style="font-size:0.85rem;color:var(--slate);">10 Flagship Categories &bull; 30 Specialized Subcategories</span>
+            <h2>Browse by Smart Home &amp; Security Department</h2>
+            <span style="font-size:0.85rem;color:var(--slate);">6 Specialized Security Categories &bull; 18 Subcategories</span>
         </div>
         <div class="grid-3">{cat_tiles}</div>
 
         <div class="sec-head" id="featured">
-            <h2>Featured Best-Selling Products</h2>
-            <span style="font-size:0.85rem;color:var(--slate);">+20 New Products Published Every 12 Hours</span>
+            <h2>Featured Smart Home &amp; Security Products</h2>
+            <span style="font-size:0.85rem;color:var(--slate);">+20 New Devices Published Every 12 Hours</span>
         </div>
         <div class="filter-row">{filter_btns}</div>
         <div class="grid-3" id="productsContainer">{prod_cards}</div>
 
         <div class="sec-head" id="reviews">
-            <h2>Latest 12-Hour Comparative Review Articles</h2>
-            <span style="font-size:0.85rem;color:var(--slate);">+5 New 4-Model Buying Guides Every 12 Hours</span>
+            <h2>Latest 12-Hour Comparative Security Review Articles</h2>
+            <span style="font-size:0.85rem;color:var(--slate);">+5 New 4-System Buying Guides Every 12 Hours</span>
         </div>
         <div class="grid-3">{rev_cards}</div>
     </main>
@@ -1252,9 +1215,9 @@ def build_seo_feeds_and_ping_all_engines(published_prods: list, reviews: list, c
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>OmniPrime10 US — 10-Department Amazon Best-Seller Storefront</title>
+    <title>AegisDomus US — Smart Home &amp; Security Tech Storefront</title>
     <link>{SITE_URL}/</link>
-    <description>Automated 12-Hour Product Reviews &amp; Buying Guides Across 10 Top Categories</description>
+    <description>Automated 12-Hour Smart Home &amp; Security Tech Reviews and Buying Guides</description>
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
     <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
 {rss_items}  </channel>
@@ -1330,7 +1293,6 @@ def main():
     save_image_cache(img_cache)
     published_prods = [p for p in products if p.get("published")]
 
-    # Pastikan semua produk terpublikasi memiliki gambar valid
     for p in published_prods:
         if not p.get("image_url"):
             img_info = fetch_free_stock_image(p["img_q"], p["idx"], img_cache)
@@ -1358,7 +1320,7 @@ def main():
     save_state(state)
     build_seo_feeds_and_ping_all_engines(published_prods, reviews, cat_urls, new_urls, today)
 
-    print(f"[DONE] Siklus #{cycle}: +20 Produk (10 Kategori) & +5 Artikel Review berhasil dipublikasikan beserta gambar stok API publik dan didaftarkan ke IndexNow & Google WebSub.")
+    print(f"[DONE] Siklus #{cycle}: +20 Produk Smart Home & Security + 5 Artikel Review berhasil dipublikasikan dan didaftarkan ke IndexNow & Google WebSub.")
 
 
 if __name__ == "__main__":
