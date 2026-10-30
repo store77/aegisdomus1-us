@@ -238,5 +238,85 @@
   "garage door house exterior_0": {
     "url": "https://api.openverse.org/v1/images/2dec9f65-7aa9-46fa-b344-a39de535d269/thumb/",
     "credit": "Openverse CC (BY)"
+  },
+  "doorbell front door delivery_1": {
+    "url": "https://loremflickr.com/640/440/doorbell?lock=261",
+    "credit": "Creative Commons Public Stock"
+  },
+  "front door bell entrance_2": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Middelburg_%28NL%29%2C_Korte_Burg_5_--_2022_--_4911.jpg/960px-Middelburg_%28NL%29%2C_Korte_Burg_5_--_2022_--_4911.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "intercom access panel building_3": {
+    "url": "https://loremflickr.com/640/440/intercom?lock=263",
+    "credit": "Creative Commons Public Stock"
+  },
+  "wireless router internet antenna_4": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Red_Hook_WiFi_Captive_Portal_Shoutbox.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "network switch ethernet server_0": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Eqiadwmf_9046.jpg/960px-Eqiadwmf_9046.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "wireless antenna outdoor pole_1": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Poulsen%27s_arc_radiotelephone_transmitter.jpg/960px-Poulsen%27s_arc_radiotelephone_transmitter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "thermostat wall temperature home_2": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Setting_the_temperature_on_a_digital_thermostat_while_standing_by_a_wall_in_the_home_during_an_indoor_activity.jpg/960px-Setting_the_temperature_on_a_digital_thermostat_while_standing_by_a_wall_in_the_home_during_an_indoor_activity.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "plumbing water pipe valve_3": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Tap-gb0fe5d2cc_1920.jpg/960px-Tap-gb0fe5d2cc_1920.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "smoke detector ceiling alarm_4": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Ceiling-smoke-alarm.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "smart home automation hub_0": {
+    "url": "https://loremflickr.com/640/440/smart?lock=270",
+    "credit": "Creative Commons Public Stock"
+  },
+  "window blinds living room modern_1": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/American_homes_and_gardens_%281907%29_%2818157284255%29.jpg/960px-American_homes_and_gardens_%281907%29_%2818157284255%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "light switch wall interior_2": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Interior%2C_musical_instrument%2C_clarinet%2C_light%2C_Secession_Fortepan_5309.jpg/960px-Interior%2C_musical_instrument%2C_clarinet%2C_light%2C_Secession_Fortepan_5309.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "security camera outdoor surveillance_3": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Security_camera_around_Ebisu_Garden_Place.jpg/960px-Security_camera_around_Ebisu_Garden_Place.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "cctv camera system building_4": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/CCTV_of_Aminadab_Gaxiola_Gonz%C3%A1lez.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "floodlight outdoor security_0": {
+    "url": "https://loremflickr.com/640/440/floodlight?lock=275",
+    "credit": "Creative Commons Public Stock"
+  },
+  "electronic door lock keypad_1": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Kwikset_270_CNT_Electronic_Deadbolt_Lock.jpg/960px-Kwikset_270_CNT_Electronic_Deadbolt_Lock.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "smart door lock home_2": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Yale_YDM7116_Yale_Luna_Pro%2B_2026-08-12_Yale_02.jpg/960px-Yale_YDM7116_Yale_Luna_Pro%2B_2026-08-12_Yale_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "garage door house exterior_3": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Garage%2C_Frederick_C._Robie_House%2C_Woodlawn_Avenue_and_58th_Street%2C_Hyde_Park%2C_Chicago%2C_IL_-_54213844899.jpg/960px-Garage%2C_Frederick_C._Robie_House%2C_Woodlawn_Avenue_and_58th_Street%2C_Hyde_Park%2C_Chicago%2C_IL_-_54213844899.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
+  },
+  "doorbell front door delivery_4": {
+    "url": "https://loremflickr.com/640/440/doorbell?lock=279",
+    "credit": "Creative Commons Public Stock"
+  },
+  "front door bell entrance_0": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/DETAIL_OF_ENTRANCE%2C_NORTH_FRONT_-_Malden_Historic_District%2C_Malden_Missionary_Baptist_Church%2C_202_Wise_Drive%2C_Malden%2C_Kanawha_County%2C_WV_HABS_WVA%2C20-MALD%2C39-3.tif/lossy-page1-960px-thumbnail.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "credit": "Wikimedia Commons Public Media"
   }
 }
